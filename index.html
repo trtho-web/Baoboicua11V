@@ -1,0 +1,3338 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Bảo Bối Đa Di Năng Của Lớp 11V</title>
+  <!-- Google Fonts chuẩn 100% tiếng Việt: Be Vietnam Pro & Nunito (Khắc phục hoàn toàn lỗi vỡ dấu tiếng Việt) -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Be+Vietnam+Pro:ital,wght@0,400;0,500;0,600;0,700;0,800;0,900;1,400;1,600&family=Nunito:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+  <!-- Tailwind CSS -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  <!-- Canvas Confetti -->
+  <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.6.0/dist/confetti.browser.min.js"></script>
+  <!-- SheetJS Thư viện xuất file Excel chuẩn -->
+  <script src="https://cdn.jsdelivr.net/npm/xlsx@0.18.5/dist/xlsx.full.min.js"></script>
+
+  <style>
+    :root {
+      --font-heading: 'Nunito', 'Be Vietnam Pro', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+      --font-body: 'Be Vietnam Pro', 'Nunito', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+    }
+    body {
+      font-family: var(--font-body);
+      background: linear-gradient(135deg, #fff0f5 0%, #ffe4e6 50%, #fdf2f8 100%);
+      min-height: 100vh;
+      color: #4c0519;
+      overflow-x: hidden;
+      -webkit-font-smoothing: antialiased;
+      -moz-osx-font-smoothing: grayscale;
+      text-rendering: optimizeLegibility;
+    }
+    h1, h2, h3, h4, .brand-title {
+      font-family: var(--font-heading);
+    }
+    button, input, select, textarea {
+      font-family: inherit;
+    }
+
+    /* Hiệu ứng Kính Lỏng (Liquid Glass) */
+    .liquid-card {
+      background: rgba(255, 255, 255, 0.75);
+      backdrop-filter: blur(28px) saturate(200%);
+      -webkit-backdrop-filter: blur(28px) saturate(200%);
+      border: 1px solid rgba(255, 255, 255, 0.85);
+      border-top: 1.5px solid #ffffff;
+      box-shadow: 0 12px 35px -8px rgba(244, 114, 182, 0.16), 0 2px 8px -2px rgba(244, 114, 182, 0.08);
+    }
+    .liquid-card-subtle {
+      background: rgba(255, 255, 255, 0.58);
+      backdrop-filter: blur(20px) saturate(180%);
+      -webkit-backdrop-filter: blur(20px) saturate(180%);
+      border: 1px solid rgba(255, 255, 255, 0.75);
+    }
+    .liquid-dock {
+      background: rgba(255, 255, 255, 0.85);
+      backdrop-filter: blur(32px) saturate(210%);
+      -webkit-backdrop-filter: blur(32px) saturate(210%);
+      border: 1.5px solid rgba(255, 255, 255, 0.95);
+      box-shadow: 0 16px 40px -10px rgba(244, 114, 182, 0.22), 0 0 0 1px rgba(255, 241, 242, 0.6);
+    }
+    .liquid-btn-primary {
+      background: linear-gradient(135deg, #fb7185 0%, #f43f5e 50%, #e11d48 100%);
+      color: #ffffff;
+      border: 1px solid rgba(255, 255, 255, 0.35);
+      box-shadow: 0 6px 20px -4px rgba(244, 63, 94, 0.42);
+      transition: all 0.25s cubic-bezier(0.34, 1.56, 0.64, 1);
+    }
+    .liquid-btn-primary:hover {
+      transform: translateY(-2px) scale(1.02);
+      box-shadow: 0 10px 25px -4px rgba(244, 63, 94, 0.52);
+    }
+    .liquid-btn-primary:active {
+      transform: translateY(0.5px) scale(0.98);
+    }
+    .liquid-btn-subtle {
+      background: rgba(255, 255, 255, 0.88);
+      backdrop-filter: blur(12px);
+      border: 1px solid rgba(254, 205, 211, 0.9);
+      color: #881337;
+      transition: all 0.2s ease;
+    }
+    .liquid-btn-subtle:hover {
+      background: #ffffff;
+      border-color: #fda4af;
+      transform: translateY(-1px);
+    }
+
+    /* Đốm chất lỏng trôi hữu cơ */
+    .liquid-orb {
+      position: fixed;
+      border-radius: 50%;
+      filter: blur(75px);
+      pointer-events: none;
+      z-index: 0;
+      opacity: 0.52;
+      animation: floatOrganic 18s ease-in-out infinite alternate;
+    }
+    @keyframes floatOrganic {
+      0% { transform: translate(0px, 0px) scale(1); }
+      50% { transform: translate(45px, -35px) scale(1.08); }
+      100% { transform: translate(-30px, 25px) scale(0.95); }
+    }
+
+    /* Hiệu ứng hào quang Ban Cán Sự */
+    .officer-glow-lt {
+      background: linear-gradient(135deg, #fffbeb 0%, #fef3c7 100%) !important;
+      border-color: #f59e0b !important;
+      box-shadow: 0 0 15px 1px rgba(245, 158, 11, 0.35) !important;
+    }
+    .officer-glow-lp {
+      background: linear-gradient(135deg, #f0fdfa 0%, #ccfbf1 100%) !important;
+      border-color: #14b8a6 !important;
+      box-shadow: 0 0 15px 1px rgba(20, 184, 166, 0.35) !important;
+    }
+    .officer-glow-bt {
+      background: linear-gradient(135deg, #fff1f2 0%, #ffe4e6 100%) !important;
+      border-color: #f43f5e !important;
+      box-shadow: 0 0 15px 1px rgba(244, 63, 94, 0.35) !important;
+    }
+    .officer-glow-pbt {
+      background: linear-gradient(135deg, #faf5ff 0%, #f3e8ff 100%) !important;
+      border-color: #a855f7 !important;
+      box-shadow: 0 0 15px 1px rgba(168, 85, 247, 0.35) !important;
+    }
+    .officer-glow-vn {
+      background: linear-gradient(135deg, #fdf2f8 0%, #fce7f3 100%) !important;
+      border-color: #ec4899 !important;
+      box-shadow: 0 0 15px 1px rgba(236, 72, 153, 0.35) !important;
+    }
+    .officer-glow-tt {
+      background: linear-gradient(135deg, #f0fdf4 0%, #dcfce7 100%) !important;
+      border-color: #22c55e !important;
+      box-shadow: 0 0 15px 1px rgba(34, 197, 94, 0.35) !important;
+    }
+
+    /* Hiệu ứng gọi trả bài */
+    .seat-calling-pulse {
+      animation: seatPulse 0.4s infinite alternate;
+      border-color: #f43f5e !important;
+      background: #ffe4e6 !important;
+    }
+    .seat-winner-glow {
+      animation: winnerGlow 1.2s infinite alternate;
+      border-color: #ec4899 !important;
+      background: linear-gradient(135deg, #fce7f3, #ffffff) !important;
+    }
+    @keyframes seatPulse {
+      from { transform: scale(1); }
+      to { transform: scale(1.06); box-shadow: 0 0 20px rgba(244, 63, 94, 0.6); }
+    }
+    @keyframes winnerGlow {
+      from { transform: scale(1.02); box-shadow: 0 0 15px rgba(236, 72, 153, 0.5); }
+      to { transform: scale(1.06); box-shadow: 0 0 28px rgba(236, 72, 153, 0.85); }
+    }
+
+    /* 3D Micro-illustration Tab Badges */
+    .tab-badge {
+      transition: transform 0.28s cubic-bezier(0.34, 1.56, 0.64, 1);
+    }
+    .nav-tab-btn:hover .tab-badge {
+      transform: translateY(-2px) scale(1.15);
+    }
+    .nav-tab-btn.active .tab-badge {
+      transform: translateY(-3px) scale(1.18);
+    }
+
+    /* Rút thăm: Vé cào & Hộp */
+    @keyframes boxShake {
+      0%, 100% { transform: rotate(0deg) scale(1); }
+      20% { transform: rotate(-5deg) scale(1.03); }
+      40% { transform: rotate(5deg) scale(1.05); }
+      60% { transform: rotate(-4deg) scale(1.04); }
+      80% { transform: rotate(3deg) scale(1.02); }
+    }
+    .animate-box-shake {
+      animation: boxShake 0.6s ease-in-out infinite;
+    }
+    .ticket-stub {
+      position: relative;
+      background: #ffffff;
+      border: 1px dashed #fda4af;
+      border-radius: 12px;
+      overflow: hidden;
+    }
+    .ticket-stub::before, .ticket-stub::after {
+      content: '';
+      position: absolute;
+      top: 50%;
+      transform: translateY(-50%);
+      width: 10px;
+      height: 10px;
+      background: #ffe4e6;
+      border-radius: 50%;
+    }
+    .ticket-stub::before { left: -5px; }
+    .ticket-stub::after { right: -5px; }
+
+    /* Mascot Hạc Hồng Origami */
+    @keyframes mascotFloat {
+      0%, 100% { transform: translateY(0px) rotate(0deg); }
+      50% { transform: translateY(-7px) rotate(2deg); }
+    }
+    @keyframes wingFlap {
+      0%, 100% { transform: rotate(0deg); }
+      50% { transform: rotate(-10deg); }
+    }
+    .mascot-container {
+      animation: mascotFloat 3.8s ease-in-out infinite;
+    }
+    .mascot-wing {
+      transform-origin: 30% 60%;
+      animation: wingFlap 2.2s ease-in-out infinite;
+    }
+    .no-scrollbar::-webkit-scrollbar { display: none; }
+    .no-scrollbar { -ms-overflow-style: none; scrollbar-width: none; }
+  </style>
+</head>
+
+<body class="relative min-h-screen pb-28 antialiased selection:bg-rose-200 selection:text-rose-900">
+  <!-- Đốm chất lỏng trôi phía sau kính -->
+  <div class="liquid-orb w-96 h-96 bg-pink-300 -top-24 -left-24"></div>
+  <div class="liquid-orb w-80 h-80 bg-rose-200 top-1/3 -right-20" style="animation-delay: -5s;"></div>
+  <div class="liquid-orb w-96 h-96 bg-amber-100 bottom-10 left-1/4" style="animation-delay: -10s;"></div>
+
+  <div class="relative z-10 max-w-6xl mx-auto px-3.5 sm:px-6 pt-3 sm:pt-5 space-y-4">
+    <!-- Header chính của trang web -->
+    <header class="liquid-card rounded-3xl p-3.5 sm:p-4.5 flex flex-wrap items-center justify-between gap-3">
+      <div class="flex items-center gap-3">
+        <!-- Biểu tượng con hạc hồng origami -->
+        <div class="w-12 h-12 rounded-2xl bg-gradient-to-tr from-pink-400 via-rose-300 to-white flex items-center justify-center shadow-md shadow-rose-300/40 p-1.5 flex-shrink-0">
+          <svg viewBox="0 0 100 100" class="w-full h-full drop-shadow-sm" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <polygon points="50,15 25,65 50,55" fill="#f43f5e" opacity="0.95"/>
+            <polygon points="50,15 75,65 50,55" fill="#fb7185" opacity="0.9"/>
+            <polygon points="25,65 5,45 35,55" fill="#fda4af" opacity="0.85"/>
+            <polygon points="75,65 95,45 65,55" fill="#f43f5e" opacity="0.8"/>
+            <polygon points="50,55 50,90 25,65" fill="#e11d48"/>
+            <polygon points="50,55 50,90 75,65" fill="#be123c"/>
+            <polygon points="50,15 42,22 47,26" fill="#facc15"/>
+          </svg>
+        </div>
+        <div>
+          <h1 class="text-lg sm:text-2xl font-black text-rose-950 tracking-tight flex items-center gap-2">
+            <span>Bảo Bối Đa Di Năng Của Lớp 11V</span>
+            <span class="text-xs px-2 py-0.5 rounded-full bg-rose-100/90 text-rose-700 font-bold border border-rose-200/80">34 Bạn 🌸</span>
+          </h1>
+          <div class="flex items-center gap-2 text-[11px] font-semibold text-rose-600">
+            <span class="inline-block w-2 h-2 rounded-full bg-emerald-500 animate-pulse"></span>
+            <span id="sync-status-text">Đã lưu tự động an toàn</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- Nút thao tác nhanh trên header (Đồng Bộ Zalo Mã JSON) -->
+      <div class="flex items-center gap-2 flex-wrap">
+        <button onclick="forceSync()" class="liquid-btn-subtle px-3 py-1.5 rounded-xl text-xs font-black flex items-center gap-1.5 shadow-xs" title="Làm mới lại dữ liệu từ bộ nhớ">
+          <span>🔄</span> Cập Nhật
+        </button>
+        <button onclick="openSyncModal()" class="liquid-btn-primary px-3.5 py-1.5 rounded-xl text-xs font-black flex items-center gap-1.5 shadow-sm" title="Sao chép mã JSON gửi Zalo để đồng bộ với máy khác">
+          <span>☁️</span> Đồng Bộ Zalo (Mã JSON)
+        </button>
+      </div>
+    </header>
+
+    <!-- THANH DANH HIỆU BAN CÁN SỰ 11V -->
+    <div class="liquid-card rounded-2xl p-2.5 sm:p-3 flex items-center gap-2 overflow-x-auto text-xs no-scrollbar">
+      <span class="text-[11px] font-black text-rose-900 whitespace-nowrap px-1.5 py-0.5 rounded-lg bg-rose-100 flex items-center gap-1">
+        <span>👑</span> BCS 11V:
+      </span>
+      <button onclick="focusOfficerSeat('11V_30')" class="px-2.5 py-1 rounded-xl font-black text-[11px] bg-amber-100/90 text-amber-900 border border-amber-300 whitespace-nowrap hover:scale-105 transition-transform flex items-center gap-1">
+        <span>👑 Lớp Trưởng:</span> Minh Thư
+      </button>
+      <button onclick="focusOfficerSeat('11V_14')" class="px-2.5 py-1 rounded-xl font-black text-[11px] bg-teal-100/90 text-teal-900 border border-teal-300 whitespace-nowrap hover:scale-105 transition-transform flex items-center gap-1">
+        <span>📘 LP Học Tập:</span> Thảo Linh
+      </button>
+      <button onclick="focusOfficerSeat('11V_26')" class="px-2.5 py-1 rounded-xl font-black text-[11px] bg-rose-100/90 text-rose-900 border border-rose-300 whitespace-nowrap hover:scale-105 transition-transform flex items-center gap-1">
+        <span>🎗️ Bí Thư:</span> Trường Thọ
+      </button>
+      <button onclick="focusOfficerSeat('11V_13')" class="px-2.5 py-1 rounded-xl font-black text-[11px] bg-purple-100/90 text-purple-900 border border-purple-300 whitespace-nowrap hover:scale-105 transition-transform flex items-center gap-1">
+        <span>⚡ Phó Bí Thư:</span> Trung Kiên
+      </button>
+      <button onclick="focusOfficerSeat('11V_22')" class="px-2.5 py-1 rounded-xl font-black text-[11px] bg-pink-100/90 text-pink-900 border border-pink-300 whitespace-nowrap hover:scale-105 transition-transform flex items-center gap-1">
+        <span>🎨 Phó Văn Nghệ:</span> Mỹ Phương
+      </button>
+      <button onclick="focusOfficerSeat('11V_10')" class="px-2 py-1 rounded-xl font-bold text-[11px] bg-white/90 text-rose-800 border border-rose-200 whitespace-nowrap hover:scale-105 transition-transform">
+        ⭐ TT1: Ngọc Hoa
+      </button>
+      <button onclick="focusOfficerSeat('11V_28')" class="px-2 py-1 rounded-xl font-bold text-[11px] bg-white/90 text-rose-800 border border-rose-200 whitespace-nowrap hover:scale-105 transition-transform">
+        ⭐ TT2: Anh Thuấn
+      </button>
+      <button onclick="focusOfficerSeat('11V_5')" class="px-2 py-1 rounded-xl font-bold text-[11px] bg-white/90 text-rose-800 border border-rose-200 whitespace-nowrap hover:scale-105 transition-transform">
+        ⭐ TT4: Khánh Chi
+      </button>
+    </div>
+
+    <!-- DOCK TABS ĐIỀU HƯỚNG 3D MICRO-ILLUSTRATION -->
+    <nav class="liquid-dock rounded-2xl p-1.5 flex items-center justify-between gap-1 overflow-x-auto no-scrollbar">
+      <button onclick="switchTab('seating')" id="tab-btn-seating" class="nav-tab-btn active flex-1 py-2 px-2 rounded-xl text-xs font-black flex items-center justify-center gap-1.5 transition-all whitespace-nowrap">
+        <!-- 3D Desk Icon -->
+        <span class="tab-badge w-5 h-5 flex-shrink-0 flex items-center justify-center">
+          <svg viewBox="0 0 40 40" class="w-full h-full drop-shadow-xs">
+            <rect x="5" y="16" width="30" height="15" rx="4" fill="#fb7185"/>
+            <rect x="7" y="13" width="26" height="5" rx="2" fill="#fda4af"/>
+            <rect x="10" y="8" width="8" height="6" rx="1.5" fill="#ffffff" opacity="0.9"/>
+            <circle cx="28" cy="11" r="2.5" fill="#facc15"/>
+          </svg>
+        </span>
+        <span>Sơ Đồ Lớp</span>
+      </button>
+      <button onclick="switchTab('activities')" id="tab-btn-activities" class="nav-tab-btn flex-1 py-2 px-2 rounded-xl text-xs font-bold text-rose-700 hover:text-rose-950 flex items-center justify-center gap-1.5 transition-all whitespace-nowrap">
+        <!-- 3D Megaphone Icon -->
+        <span class="tab-badge w-5 h-5 flex-shrink-0 flex items-center justify-center">
+          <svg viewBox="0 0 40 40" class="w-full h-full drop-shadow-xs">
+            <polygon points="8,15 16,11 26,7 26,31 16,27 8,23" fill="#f43f5e"/>
+            <ellipse cx="26" cy="19" rx="3" ry="12" fill="#fb7185"/>
+            <polygon points="12,25 15,35 19,33 16,25" fill="#be123c"/>
+            <path d="M31,14 Q35,19 31,24" stroke="#facc15" stroke-width="2.5" stroke-linecap="round" fill="none"/>
+          </svg>
+        </span>
+        <span>Hoạt Động</span>
+      </button>
+      <button onclick="switchTab('members')" id="tab-btn-members" class="nav-tab-btn flex-1 py-2 px-2 rounded-xl text-xs font-bold text-rose-700 hover:text-rose-950 flex items-center justify-center gap-1.5 transition-all whitespace-nowrap">
+        <!-- 3D Member Card Icon -->
+        <span class="tab-badge w-5 h-5 flex-shrink-0 flex items-center justify-center">
+          <svg viewBox="0 0 40 40" class="w-full h-full drop-shadow-xs">
+            <rect x="8" y="7" width="24" height="28" rx="4" fill="#ffffff" stroke="#fda4af" stroke-width="1.5"/>
+            <rect x="8" y="7" width="24" height="7" rx="3" fill="#f43f5e"/>
+            <circle cx="20" cy="20" r="5" fill="#f472b6"/>
+            <rect x="13" y="27" width="14" height="4" rx="2" fill="#fbcfe8"/>
+          </svg>
+        </span>
+        <span>Thành Viên</span>
+      </button>
+      <button onclick="switchTab('doan')" id="tab-btn-doan" class="nav-tab-btn flex-1 py-2 px-2 rounded-xl text-xs font-bold text-rose-700 hover:text-rose-950 flex items-center justify-center gap-1.5 transition-all whitespace-nowrap">
+        <!-- 3D Youth Torch & Emblem -->
+        <span class="tab-badge w-5 h-5 flex-shrink-0 flex items-center justify-center">
+          <svg viewBox="0 0 40 40" class="w-full h-full drop-shadow-xs">
+            <circle cx="20" cy="20" r="14" fill="#f43f5e"/>
+            <circle cx="20" cy="20" r="11" fill="#ffffff"/>
+            <polygon points="20,11 23,17 29,18 24,23 26,29 20,25 14,29 16,23 11,18 17,17" fill="#e11d48"/>
+            <circle cx="20" cy="20" r="4" fill="#facc15"/>
+          </svg>
+        </span>
+        <span>Đoàn Phí</span>
+      </button>
+      <button onclick="switchTab('wheel')" id="tab-btn-wheel" class="nav-tab-btn flex-1 py-2 px-2 rounded-xl text-xs font-bold text-rose-700 hover:text-rose-950 flex items-center justify-center gap-1.5 transition-all whitespace-nowrap">
+        <!-- 3D Spin Wheel Icon -->
+        <span class="tab-badge w-5 h-5 flex-shrink-0 flex items-center justify-center">
+          <svg viewBox="0 0 40 40" class="w-full h-full drop-shadow-xs">
+            <circle cx="20" cy="20" r="14" fill="#f43f5e"/>
+            <path d="M20,20 L20,6 A14,14 0 0,1 32,13 Z" fill="#facc15"/>
+            <path d="M20,20 L32,13 A14,14 0 0,1 32,27 Z" fill="#38bdf8"/>
+            <path d="M20,20 L32,27 A14,14 0 0,1 20,34 Z" fill="#4ade80"/>
+            <circle cx="20" cy="20" r="4.5" fill="#ffffff"/>
+            <circle cx="20" cy="20" r="2.5" fill="#e11d48"/>
+          </svg>
+        </span>
+        <span>Vòng Quay</span>
+      </button>
+      <button onclick="switchTab('tickets')" id="tab-btn-tickets" class="nav-tab-btn flex-1 py-2 px-2 rounded-xl text-xs font-bold text-rose-700 hover:text-rose-950 flex items-center justify-center gap-1.5 transition-all whitespace-nowrap">
+        <!-- 3D Ticket Box Icon -->
+        <span class="tab-badge w-5 h-5 flex-shrink-0 flex items-center justify-center">
+          <svg viewBox="0 0 40 40" class="w-full h-full drop-shadow-xs">
+            <rect x="7" y="15" width="26" height="18" rx="4" fill="#fb7185"/>
+            <rect x="5" y="11" width="30" height="6" rx="2.5" fill="#f43f5e"/>
+            <rect x="14" y="5" width="12" height="9" rx="2" fill="#ffffff" stroke="#fda4af" stroke-width="1.2"/>
+            <circle cx="20" cy="9.5" r="1.8" fill="#e11d48"/>
+          </svg>
+        </span>
+        <span>Hộp Thăm</span>
+      </button>
+    </nav>
+
+    <!-- ==================== TAB 1: SƠ ĐỒ LỚP ==================== -->
+    <div id="tab-seating" class="tab-pane space-y-4">
+      <div class="flex flex-wrap items-center justify-between gap-3">
+        <div>
+          <h2 class="text-base sm:text-lg font-black text-rose-950 flex items-center gap-2">
+            <span>🪑</span> Sơ Đồ Lớp Học 11V (4 Tổ • 5 Dãy Bàn Đôi + Bàn 6 Tiêu Chuẩn)
+          </h2>
+          <p class="text-xs text-rose-600 font-bold">Nhấp ghế 1 rồi nhấp ghế 2 để hoán đổi chỗ ngồi ngay lập tức</p>
+        </div>
+        <div class="flex items-center gap-2 flex-wrap">
+          <button onclick="startCallOralExam()" id="btn-call-oral" class="liquid-btn-primary px-3.5 py-2 rounded-2xl text-xs font-black flex items-center gap-1.5 shadow-sm">
+            <span>🎲</span> Quay Gọi Trả Bài
+          </button>
+          <button onclick="autoFillSeating()" class="liquid-btn-subtle px-3 py-2 rounded-2xl text-xs font-bold">
+            ⚡ Tự Động Xếp
+          </button>
+          <button onclick="clearAllSeats()" class="liquid-btn-subtle px-3 py-2 rounded-2xl text-xs font-bold text-rose-600">
+            🧹 Làm Trống
+          </button>
+        </div>
+      </div>
+
+      <!-- Sơ đồ bục giảng & các tổ (hỗ trợ cuộn ngang trên điện thoại) -->
+      <div class="liquid-card rounded-3xl p-3 sm:p-5 overflow-x-auto">
+        <div class="min-w-[860px] space-y-5">
+          <!-- Bục giảng: Bảng Đen ở giữa & Bàn Giáo Viên chệch sang Tổ 4 -->
+          <div class="grid grid-cols-4 gap-4 items-end pb-3 border-b border-rose-200/70">
+            <!-- Bảng đen phủ 3 cột (Tổ 1, 2, 3) -->
+            <div class="col-span-3 bg-gradient-to-r from-emerald-950 via-teal-950 to-emerald-950 text-white rounded-2xl py-3 px-4 shadow-inner border-2 border-emerald-800 text-center relative overflow-hidden">
+              <span class="text-xs font-black uppercase tracking-widest text-emerald-200/90 flex items-center justify-center gap-2">
+                <span>✨</span> BẢNG ĐEN LỚP 11V • BỤC GIẢNG <span>✨</span>
+              </span>
+            </div>
+            <!-- Bàn giáo viên thẳng hàng trên đầu Tổ 4 -->
+            <div class="bg-gradient-to-tr from-amber-100 to-orange-50 border-2 border-amber-300 rounded-2xl py-2.5 px-3 text-center shadow-xs">
+              <div class="text-xs font-black text-amber-900 flex items-center justify-center gap-1">
+                <span>👩‍🏫</span> Bàn Giáo Viên
+              </div>
+              <span class="text-[10px] text-amber-700 font-bold block">📍 Phía trước Tổ 4</span>
+            </div>
+          </div>
+
+          <!-- Lưới 4 Tổ (Render tự động bởi renderSeatingGrid()) -->
+          <div class="grid grid-cols-4 gap-4" id="seating-grid-container"></div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ==================== TAB 2: HOẠT ĐỘNG TRƯỜNG ==================== -->
+    <div id="tab-activities" class="tab-pane hidden space-y-4">
+      <div class="flex items-center justify-between gap-3 flex-wrap">
+        <div>
+          <h2 class="text-lg font-black text-rose-950 flex items-center gap-2">
+            <span>📢</span> Quản Lý Hoạt Động Của Trường
+          </h2>
+          <p class="text-xs text-rose-600 font-bold">Theo dõi ngày bắt đầu, ngày kết thúc và số lượng tham gia</p>
+        </div>
+        <button onclick="openNewActivityModal()" class="liquid-btn-primary px-3.5 py-2 rounded-2xl text-xs font-black flex items-center gap-1.5 shadow-sm">
+          <span>+</span> Thêm Hoạt Động Mới
+        </button>
+      </div>
+
+      <!-- Thống kê tỷ lệ tham gia toàn lớp & Lọc -->
+      <div class="grid grid-cols-1 sm:grid-cols-3 gap-3">
+        <div class="liquid-card p-3.5 rounded-2xl flex items-center gap-3">
+          <div class="w-10 h-10 rounded-xl bg-pink-100 flex items-center justify-center text-lg text-rose-600">📊</div>
+          <div class="flex-1">
+            <span class="text-[11px] font-bold text-rose-500 block">Độ Phủ Tham Gia Toàn Lớp</span>
+            <span id="act-stat-percent" class="text-sm font-black text-rose-950">0% (0/34 bạn)</span>
+            <div class="w-full h-1.5 rounded-full bg-rose-100 overflow-hidden mt-1">
+              <div id="act-stat-percent-bar" class="h-full bg-rose-500 rounded-full transition-all duration-500" style="width: 0%"></div>
+            </div>
+          </div>
+        </div>
+
+        <div class="liquid-card p-3.5 rounded-2xl flex items-center gap-3">
+          <div class="w-10 h-10 rounded-xl bg-amber-100 flex items-center justify-center text-lg text-amber-600">⭐</div>
+          <div class="flex-1">
+            <div class="flex items-center justify-between">
+              <span class="text-[11px] font-bold text-amber-600 block">Chưa Có Hoạt Động</span>
+              <button onclick="openUnassignedStudentsModal()" class="text-[10px] text-amber-800 underline font-bold">Xem DS</button>
+            </div>
+            <span id="act-stat-zero" class="text-sm font-black text-rose-950">0 bạn</span>
+          </div>
+        </div>
+
+        <div class="liquid-card p-3.5 rounded-2xl flex items-center gap-3">
+          <div class="w-10 h-10 rounded-xl bg-teal-100 flex items-center justify-center text-lg text-teal-600">🎯</div>
+          <div>
+            <span class="text-[11px] font-bold text-teal-600 block">Tổng Lượt Hoàn Thành</span>
+            <span id="act-stat-slots" class="text-sm font-black text-rose-950">0 / 0 lượt</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- Thanh bộ lọc hoạt động -->
+      <div class="flex items-center gap-2 flex-wrap">
+        <span class="text-xs font-bold text-rose-800">Bộ lọc:</span>
+        <button onclick="setActivityFilter('all')" id="filter-act-all" class="px-3 py-1.5 rounded-xl text-xs font-black bg-rose-500 text-white shadow-xs transition-all">Tất Cả</button>
+        <button onclick="setActivityFilter('needed')" id="filter-act-needed" class="px-3 py-1.5 rounded-xl text-xs font-bold bg-white/80 text-rose-700 border border-rose-200 hover:bg-rose-100 transition-all">⏳ Cần Thêm Bạn</button>
+        <button onclick="setActivityFilter('full')" id="filter-act-full" class="px-3 py-1.5 rounded-xl text-xs font-bold bg-white/80 text-rose-700 border border-rose-200 hover:bg-rose-100 transition-all">✓ Đã Đủ</button>
+      </div>
+
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-4" id="activities-container"></div>
+    </div>
+
+    <!-- ==================== TAB 3: THÀNH VIÊN LỚP ==================== -->
+    <div id="tab-members" class="tab-pane hidden space-y-4">
+      <div class="flex items-center justify-between gap-3 flex-wrap">
+        <div>
+          <h2 class="text-lg font-black text-rose-950 flex items-center gap-2">
+            <span>🪪</span> Danh Sách 34 Học Sinh Lớp 11V
+          </h2>
+          <p class="text-xs text-rose-600 font-bold">Thống kê hoạt động đã tham gia và chỉnh sửa thông tin</p>
+        </div>
+        <div class="flex items-center gap-2 flex-wrap">
+          <button onclick="exportMembersToExcel()" class="liquid-btn-primary px-3 py-1.5 rounded-xl text-xs font-black flex items-center gap-1.5 shadow-sm" title="Xuất danh sách thành viên ra file Excel">
+            <span>📊</span> Xuất File Excel
+          </button>
+          <input type="text" id="member-search-input" oninput="renderMembers()" placeholder="🔍 Tìm tên học sinh..." class="px-3 py-1.5 rounded-xl bg-white/90 border border-rose-200 text-xs font-bold text-rose-950 focus:outline-none focus:ring-2 focus:ring-rose-400 w-44 shadow-xs">
+        </div>
+      </div>
+
+      <div class="liquid-card rounded-3xl overflow-hidden p-1 shadow-sm">
+        <div class="overflow-x-auto">
+          <table class="w-full text-left text-xs">
+            <thead class="bg-rose-50/80 text-rose-900 font-black border-b border-rose-200/80">
+              <tr>
+                <th class="py-3 px-3">STT</th>
+                <th class="py-3 px-3">Họ Và Tên</th>
+                <th class="py-3 px-3 text-center">Số Hoạt Động</th>
+                <th class="py-3 px-3">Chi Tiết Tham Gia</th>
+                <th class="py-3 px-3 text-right">Thao Tác</th>
+              </tr>
+            </thead>
+            <tbody id="members-table-body" class="divide-y divide-rose-100/70"></tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+
+    <!-- ==================== TAB 4: ĐOÀN VIÊN & ĐOÀN PHÍ ==================== -->
+    <div id="tab-doan" class="tab-pane hidden space-y-4">
+      <div class="flex flex-wrap items-center justify-between gap-3">
+        <div>
+          <h2 class="text-base sm:text-lg font-black text-rose-950 flex items-center gap-2">
+            <span>🎗️</span> Quản Lý Đoàn Viên & Đoàn Phí Lớp 11V
+          </h2>
+          <p class="text-xs text-rose-600 font-bold">Điều chỉnh mức phí riêng từng bạn theo ngày vào đoàn • Quỹ tự động tính toán</p>
+        </div>
+        <div class="flex items-center gap-2 flex-wrap">
+          <button onclick="exportDoanToExcel()" class="liquid-btn-primary px-3 py-1.5 rounded-xl text-xs font-black flex items-center gap-1.5 shadow-sm bg-gradient-to-r from-emerald-500 to-teal-600" title="Xuất danh sách đoàn phí ra file Excel">
+            <span>📊</span> Xuất File Excel
+          </button>
+          <button onclick="copyUnpaidDoanList()" class="liquid-btn-primary px-3 py-1.5 rounded-xl text-xs font-black flex items-center gap-1.5 shadow-sm">
+            <span>📋</span> Sao Chép DS Chưa Nộp Gửi Zalo
+          </button>
+          <button onclick="openDoanSettingModal()" class="liquid-btn-subtle px-3 py-1.5 rounded-xl text-xs font-bold flex items-center gap-1 shadow-xs">
+            <span>⚙️</span> Phí Chung
+          </button>
+          <button onclick="openSyncModal()" class="liquid-btn-primary px-3 py-1.5 rounded-xl text-xs font-black flex items-center gap-1 shadow-xs">
+            <span>☁️</span> Mã JSON Zalo
+          </button>
+        </div>
+      </div>
+
+      <!-- Khối thống kê đoàn phí -->
+      <div class="grid grid-cols-1 sm:grid-cols-3 gap-3">
+        <div class="liquid-card p-3.5 rounded-2xl flex items-center gap-3">
+          <div class="w-10 h-10 rounded-xl bg-rose-100 flex items-center justify-center text-lg text-rose-600">👥</div>
+          <div>
+            <span class="text-[11px] font-bold text-rose-500 block">Tổng Số Đoàn Viên</span>
+            <span id="doan-stat-total" class="text-sm sm:text-base font-black text-rose-950">34 bạn (100%)</span>
+          </div>
+        </div>
+        <div class="liquid-card p-3.5 rounded-2xl flex items-center gap-3">
+          <div class="w-10 h-10 rounded-xl bg-emerald-100 flex items-center justify-center text-lg text-emerald-600">✅</div>
+          <div>
+            <span class="text-[11px] font-bold text-emerald-600 block">Tiến Độ Thu Phí</span>
+            <span id="doan-stat-paid" class="text-sm sm:text-base font-black text-emerald-950">0 / 34 bạn</span>
+          </div>
+        </div>
+        <div class="liquid-card p-3.5 rounded-2xl flex items-center gap-3">
+          <div class="w-10 h-10 rounded-xl bg-amber-100 flex items-center justify-center text-lg text-amber-600">💰</div>
+          <div>
+            <span class="text-[11px] font-bold text-amber-600 block">Tổng Quỹ Đoàn Đã Thu</span>
+            <div id="doan-stat-fund" class="text-sm sm:text-base font-black text-rose-950">
+              <span class="text-emerald-700">0 đ</span>
+              <span class="text-xs font-normal text-rose-400"> / Cần: 0 đ</span>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Bảng danh sách đoàn phí với ô chỉnh tiền riêng & nút gán nhanh -->
+      <div class="liquid-card rounded-3xl overflow-hidden p-1 shadow-sm">
+        <div class="overflow-x-auto">
+          <table class="w-full text-left text-xs">
+            <thead class="bg-rose-50/80 text-rose-900 font-black border-b border-rose-200/80">
+              <tr>
+                <th class="py-3 px-3">STT</th>
+                <th class="py-3 px-3">Họ Tên</th>
+                <th class="py-3 px-3">Ngày Vào Đoàn</th>
+                <th class="py-3 px-3">
+                  Mức Phí (VNĐ)
+                  <span class="block text-[10px] text-rose-400 font-normal">Chỉnh riêng từng bạn</span>
+                </th>
+                <th class="py-3 px-3 text-center">Trạng Thái</th>
+                <th class="py-3 px-3 text-right">Ghi Chú & Chi Tiết</th>
+              </tr>
+            </thead>
+            <tbody id="doan-table-body" class="divide-y divide-rose-100/70"></tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+
+    <!-- ==================== TAB 5: VÒNG QUAY MAY MẮN ==================== -->
+    <div id="tab-wheel" class="tab-pane hidden space-y-4">
+      <div class="flex items-center justify-between gap-3 flex-wrap">
+        <div>
+          <h2 class="text-lg font-black text-rose-950 flex items-center gap-2">
+            <span>🎡</span> Vòng Quay May Mắn 11V
+          </h2>
+          <p class="text-xs text-rose-600 font-bold">Mặc định không gán vào HĐ (phù hợp gọi trả bài / gọi tên tự do)</p>
+        </div>
+      </div>
+
+      <div class="grid grid-cols-1 lg:grid-cols-12 gap-5 items-start">
+        <!-- Khu vực Canvas bánh xe -->
+        <div class="lg:col-span-7 flex flex-col items-center justify-center liquid-card rounded-3xl p-5 relative overflow-hidden">
+          <div class="relative w-full max-w-[360px] aspect-square flex items-center justify-center">
+            <!-- Kim chỉ hướng xuống -->
+            <div class="absolute -top-1.5 left-1/2 -translate-x-1/2 z-20 w-7 h-9 drop-shadow-md">
+              <svg viewBox="0 0 40 50" class="w-full h-full fill-rose-600">
+                <polygon points="20,50 0,10 40,10"/>
+                <circle cx="20" cy="12" r="7" fill="#ffffff"/>
+              </svg>
+            </div>
+            <!-- Canvas vòng quay -->
+            <canvas id="wheel-canvas" width="360" height="360" class="rounded-full shadow-lg border-4 border-white"></canvas>
+            <!-- Nút bấm quay ở tâm vòng tròn -->
+            <button onclick="spinWheel()" id="btn-spin-wheel" class="absolute z-10 w-16 h-16 rounded-full liquid-btn-primary flex flex-col items-center justify-center font-black text-xs shadow-xl active:scale-90 transition-transform">
+              <span>QUAY</span>
+              <span class="text-[9px] font-bold">11V 🌸</span>
+            </button>
+          </div>
+          <p id="wheel-hint" class="text-xs text-rose-500 font-bold mt-3">Nhấn nút QUAY ở giữa để chọn ngẫu nhiên!</p>
+        </div>
+
+        <!-- Cột thiết lập vòng quay & lịch sử -->
+        <div class="lg:col-span-5 space-y-4">
+          <div class="liquid-card rounded-3xl p-4.5 space-y-3">
+            <h3 class="text-xs font-black uppercase tracking-wider text-rose-900 flex items-center gap-1.5">
+              <span>⚙️</span> Tùy Chọn Vòng Quay
+            </h3>
+            <div class="space-y-1">
+              <label class="text-[11px] font-bold text-rose-700">Mục đích quay:</label>
+              <select id="wheel-activity-select" onchange="setupWheelCandidates()" class="w-full px-3 py-2 rounded-xl bg-white/90 border border-rose-200 text-xs font-bold text-rose-950 focus:outline-none focus:ring-2 focus:ring-rose-400">
+                <option value="">✨ Không chọn (Quay gọi tên / Trả bài)</option>
+              </select>
+            </div>
+
+            <div class="space-y-1">
+              <label class="text-[11px] font-bold text-rose-700">Quy tắc lọc người quay:</label>
+              <select id="wheel-filter-mode" onchange="setupWheelCandidates()" class="w-full px-3 py-2 rounded-xl bg-white/90 border border-rose-200 text-xs font-bold text-rose-950 focus:outline-none focus:ring-2 focus:ring-rose-400">
+                <option value="all">Tất cả 34 thành viên lớp 11V</option>
+                <option value="unassigned">Chỉ những bạn chưa tham gia HĐ này</option>
+                <option value="least">Ưu tiên những bạn tham gia ít HĐ nhất</option>
+              </select>
+            </div>
+            <div class="text-[11px] text-rose-500 font-semibold" id="wheel-candidate-count">Đang có 34 bạn trên vòng quay</div>
+          </div>
+
+          <!-- Lịch sử quay -->
+          <div class="liquid-card rounded-3xl p-4 space-y-2">
+            <div class="flex items-center justify-between">
+              <h3 class="text-xs font-black uppercase tracking-wider text-rose-900 flex items-center gap-1.5">
+                <span>📜</span> Lịch Sử Lượt Quay
+              </h3>
+              <button onclick="clearSpinHistory()" class="text-[10px] text-rose-500 hover:text-rose-800 font-bold underline">Xóa lịch sử</button>
+            </div>
+            <div id="wheel-history-container" class="max-h-40 overflow-y-auto space-y-1.5 pr-1 text-xs">
+              <p class="text-rose-400 italic text-[11px]">Chưa có lượt quay nào</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ==================== TAB 6: HỘP RÚT THĂM ==================== -->
+    <div id="tab-tickets" class="tab-pane hidden space-y-4">
+      <div class="flex items-center justify-between gap-3 flex-wrap">
+        <div>
+          <h2 class="text-lg font-black text-rose-950 flex items-center gap-2">
+            <span>🎟️</span> Hộp Rút Thăm May Mắn (Lucky Box)
+          </h2>
+          <p class="text-xs text-rose-600 font-bold">Mỗi lần xuống hàng (Enter) là 1 lá thăm riêng biệt • Tùy chỉnh nội dung tự do</p>
+        </div>
+      </div>
+
+      <div class="grid grid-cols-1 lg:grid-cols-12 gap-5 items-start">
+        <!-- Hộp thăm 3D Liquid Glass -->
+        <div class="lg:col-span-6 liquid-card rounded-3xl p-5 flex flex-col items-center justify-center text-center space-y-4 relative overflow-hidden">
+          <div id="ticket-box-3d" onclick="handleDrawClick()" class="cursor-pointer group relative w-48 h-48 rounded-[36px] bg-gradient-to-tr from-rose-400 via-pink-400 to-rose-300 p-1.5 shadow-2xl transition-transform duration-300 hover:scale-105 active:scale-95">
+            <div class="w-full h-full rounded-[30px] bg-white/30 backdrop-blur-md flex flex-col items-center justify-center border border-white/60 p-3 relative">
+              <div class="absolute -top-3 px-3 py-0.5 rounded-full bg-amber-300 text-amber-950 text-[10px] font-black border border-white shadow-sm animate-bounce">
+                🌸 RÚT TÔI!
+              </div>
+              <div class="text-4xl mb-1 group-hover:scale-110 transition-transform">🎁</div>
+              <span class="text-xs font-black text-rose-950 uppercase tracking-widest">11V LUCKY BOX</span>
+              <span id="ticket-box-count" class="text-[11px] font-bold text-rose-800 bg-white/70 px-2.5 py-0.5 rounded-full mt-1">34 Thăm</span>
+            </div>
+          </div>
+
+          <!-- Bảng nút bấm thao tác rút thăm -->
+          <div class="flex items-center justify-center gap-2 flex-wrap w-full">
+            <button onclick="handleDrawClick(1)" class="liquid-btn-primary px-4 py-2 rounded-xl text-xs font-black shadow-sm">
+              🎲 Rút 1 Lá
+            </button>
+            <button onclick="handleDrawClick(2)" class="liquid-btn-subtle px-3 py-2 rounded-xl text-xs font-bold">
+              Rút 2 Lá
+            </button>
+            <button onclick="handleDrawClick(3)" class="liquid-btn-subtle px-3 py-2 rounded-xl text-xs font-bold">
+              Rút 3 Lá
+            </button>
+            <button onclick="handleDrawClick(5)" class="liquid-btn-subtle px-3 py-2 rounded-xl text-xs font-bold">
+              Rút 5 Lá
+            </button>
+          </div>
+          <label class="flex items-center gap-2 text-xs font-bold text-rose-800 cursor-pointer">
+            <input type="checkbox" id="ticket-remove-after-draw" checked class="accent-rose-500 rounded">
+            <span>Rút không hoàn lại (Bỏ lá thăm sau khi trúng)</span>
+          </label>
+        </div>
+
+        <!-- Khung soạn thảo lá thăm nhiều dòng (Enter = 1 lá thăm) -->
+        <div class="lg:col-span-6 space-y-4">
+          <div class="liquid-card rounded-3xl p-4.5 space-y-3">
+            <div class="flex items-center justify-between">
+              <h3 class="text-xs font-black uppercase tracking-wider text-rose-900 flex items-center gap-1.5">
+                <span>✍️</span> Soạn Danh Sách Lá Thăm
+              </h3>
+              <div class="flex items-center gap-1">
+                <button onclick="apply11VStudentsToTickets()" class="text-[10px] font-black px-2 py-1 rounded-lg bg-rose-100 text-rose-800 hover:bg-rose-200">
+                  + 34 Bạn 11V
+                </button>
+                <button onclick="promptGenerateNumberTickets()" class="text-[10px] font-black px-2 py-1 rounded-lg bg-rose-100 text-rose-800 hover:bg-rose-200">
+                  + Dãy Số
+                </button>
+              </div>
+            </div>
+            <p class="text-[11px] text-rose-600 font-bold">Nhập hoặc dán danh sách tên/số vào đây (Mỗi lần xuống dòng là 1 lá thăm riêng biệt):</p>
+            <textarea id="ticket-multiline-input" rows="4" placeholder="Ví dụ:&#10;Nguyễn Văn A&#10;Trần Thị B&#10;Phiếu May Mắn Số 10..." class="w-full px-3 py-2 rounded-2xl bg-white/90 border border-rose-200 text-xs font-bold text-rose-950 focus:outline-none focus:ring-2 focus:ring-rose-400"></textarea>
+            <div class="flex items-center gap-2">
+              <button onclick="addTicketsFromMultiline(false)" class="flex-1 liquid-btn-primary py-2 rounded-xl text-xs font-black shadow-xs">
+                + Thêm Vào Hộp
+              </button>
+              <button onclick="addTicketsFromMultiline(true)" class="liquid-btn-subtle px-3 py-2 rounded-xl text-xs font-bold text-rose-700" title="Thay thế toàn bộ thăm hiện tại">
+                🔄 Thay Thế Hết
+              </button>
+              <button onclick="clearAllTickets()" class="liquid-btn-subtle px-2.5 py-2 rounded-xl text-xs font-bold text-rose-500" title="Xóa sạch hộp">
+                🧹 Xóa
+              </button>
+            </div>
+          </div>
+
+          <!-- Danh sách thăm hiện có trong hộp -->
+          <div class="liquid-card rounded-3xl p-4 space-y-2">
+            <div class="flex items-center justify-between">
+              <span class="text-xs font-black text-rose-900">Danh Sách Thăm Đang Có:</span>
+              <button onclick="shuffleTicketBox()" class="text-[11px] text-rose-600 hover:text-rose-900 font-bold">🔀 Xáo Trộn Hộp</button>
+            </div>
+            <div id="ticket-list-preview" class="max-h-48 overflow-y-auto grid grid-cols-2 gap-2 pr-1"></div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ==================== MODAL 1: ĐỒNG BỘ ZALO (MÃ JSON) ==================== -->
+  <div id="modal-sync-info" class="fixed inset-0 z-50 bg-black/40 backdrop-blur-sm hidden items-center justify-center p-3 sm:p-4">
+    <div class="liquid-card max-w-lg w-full rounded-[32px] p-5 sm:p-6 space-y-4 border border-white max-h-[92vh] flex flex-col">
+      <div class="flex items-center justify-between border-b border-rose-100 pb-3">
+        <h3 class="text-base font-black text-rose-950 flex items-center gap-2">
+          <span>☁️</span> Đồng Bộ Dữ Liệu Qua Zalo (Mã JSON)
+        </h3>
+        <button onclick="closeSyncModal()" class="text-rose-400 hover:text-rose-700 text-xs font-bold">✕</button>
+      </div>
+
+      <div class="space-y-3.5 text-xs text-rose-900 overflow-y-auto pr-1 flex-1">
+        <!-- Khung 1: Máy có dữ liệu (Xuất mã JSON gửi Zalo) -->
+        <div class="p-3.5 rounded-2xl bg-white/80 border border-rose-200/80 space-y-2">
+          <div class="flex items-center justify-between">
+            <span class="font-black text-rose-950 flex items-center gap-1.5 text-xs">
+              <span class="w-5 h-5 rounded-full bg-rose-500 text-white flex items-center justify-center text-[10px]">1</span>
+              Máy đang có dữ liệu (Xuất mã gửi Zalo)
+            </span>
+            <span class="text-[10px] text-rose-600 font-bold">Định dạng chuẩn</span>
+          </div>
+          <p class="text-[11px] text-rose-600">Nhấn nút bên dưới để sao chép mã JSON rồi dán gửi qua Zalo vào điện thoại hoặc máy khác:</p>
+          <textarea id="sync-export-textarea" rows="4" readonly class="w-full px-2.5 py-1.5 rounded-xl bg-rose-50/70 border border-rose-200 font-mono text-[10px] text-rose-800 select-all focus:outline-none"></textarea>
+          <button onclick="copySyncJsonToZalo()" class="w-full liquid-btn-primary py-2.5 rounded-xl text-xs font-black flex items-center justify-center gap-1.5 shadow-xs">
+            <span>📋</span> Sao Chép Mã JSON Gửi Zalo
+          </button>
+        </div>
+
+        <!-- Khung 2: Máy cần nhận dữ liệu (Dán mã từ Zalo) -->
+        <div class="p-3.5 rounded-2xl bg-pink-50/70 border border-pink-200/80 space-y-2">
+          <div class="flex items-center justify-between">
+            <span class="font-black text-rose-950 flex items-center gap-1.5 text-xs">
+              <span class="w-5 h-5 rounded-full bg-pink-500 text-white flex items-center justify-center text-[10px]">2</span>
+              Máy nhận dữ liệu (Dán mã nhận từ Zalo)
+            </span>
+            <span class="text-[10px] text-pink-600 font-bold">Tương thích 100%</span>
+          </div>
+          <p class="text-[11px] text-rose-600">Sao chép mã JSON từ tin nhắn Zalo, dán vào ô dưới đây rồi bấm Nạp:</p>
+          <textarea id="sync-import-textarea" rows="4" placeholder="Dán mã JSON nhận từ Zalo vào đây..." class="w-full px-2.5 py-1.5 rounded-xl bg-white border border-rose-200 font-mono text-[11px] font-bold text-rose-950 focus:outline-none focus:ring-2 focus:ring-rose-400"></textarea>
+          <button onclick="applySyncFromZalo()" class="w-full liquid-btn-primary py-2.5 rounded-xl text-xs font-black flex items-center justify-center gap-1.5 bg-gradient-to-r from-emerald-500 to-teal-600 shadow-xs">
+            <span>✅</span> Nạp & Đồng Bộ Ngay Vào Máy Này
+          </button>
+        </div>
+
+        <!-- Khung 3: File dự phòng -->
+        <div class="flex items-center justify-between pt-1 text-[11px]">
+          <span class="text-rose-400 font-bold">Dự phòng tệp tin:</span>
+          <div class="flex items-center gap-2">
+            <button onclick="downloadSyncFile()" class="text-rose-600 hover:text-rose-900 font-bold underline">💾 Tải .JSON</button>
+            <span class="text-rose-300">•</span>
+            <label class="text-rose-600 hover:text-rose-900 font-bold underline cursor-pointer">
+              📂 Mở .JSON
+              <input type="file" accept=".json" onchange="uploadSyncFile(event)" class="hidden">
+            </label>
+          </div>
+        </div>
+      </div>
+
+      <div class="flex items-center justify-between pt-2 border-t border-rose-100">
+        <span class="text-[11px] text-rose-400 font-bold">🌸 An toàn, không mất dữ liệu</span>
+        <button onclick="closeSyncModal()" class="liquid-btn-subtle px-4 py-1.5 rounded-xl text-xs font-black">Đóng</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- ==================== MODAL 2: CHỈNH SỬA MỨC ĐOÀN PHÍ RIÊNG ==================== -->
+  <div id="modal-edit-individual-doan" class="fixed inset-0 z-50 bg-black/40 backdrop-blur-sm hidden items-center justify-center p-3 sm:p-4">
+    <div class="liquid-card max-w-md w-full rounded-[32px] p-5 sm:p-6 space-y-4 border border-white">
+      <div class="flex items-center justify-between border-b border-rose-100 pb-3">
+        <h3 class="text-sm sm:text-base font-black text-rose-950 flex items-center gap-2">
+          <span>🎗️</span> Chỉnh Mức Đoàn Phí Riêng Từng Bạn
+        </h3>
+        <button onclick="closeEditIndividualDoanModal()" class="text-rose-400 hover:text-rose-700 text-xs font-bold">✕</button>
+      </div>
+
+      <div class="space-y-3 text-xs text-rose-900">
+        <div class="p-3 rounded-2xl bg-rose-50/70 border border-rose-200/80 flex items-center justify-between">
+          <div>
+            <div id="modal-doan-stu-name" class="font-black text-rose-950 text-sm">Trần Minh Thư</div>
+            <div id="modal-doan-stu-code" class="text-[11px] text-rose-500 font-bold">11V_30</div>
+          </div>
+          <span id="modal-doan-stu-officer" class="text-[10px] font-bold px-2 py-0.5 rounded-full bg-amber-100 text-amber-800 border border-amber-200 hidden">Lớp Trưởng</span>
+        </div>
+
+        <input type="hidden" id="modal-doan-stu-id">
+
+        <div class="space-y-1">
+          <label class="font-black text-rose-900 text-xs flex items-center gap-1">📅 Ngày kết nạp Đoàn của bạn này:</label>
+          <input type="date" id="modal-doan-stu-date" class="w-full px-3 py-2 rounded-xl bg-white border border-rose-200 font-bold text-rose-950 focus:outline-none focus:ring-2 focus:ring-rose-400">
+        </div>
+
+        <div class="space-y-2">
+          <label class="font-black text-rose-900 text-xs flex items-center gap-1">💰 Mức đoàn phí cần thu (VNĐ):</label>
+          <div class="flex items-center gap-2">
+            <input type="number" step="1000" min="0" id="modal-doan-stu-fee" class="flex-1 px-3 py-2 rounded-xl bg-white border border-rose-200 font-black text-rose-950 text-right text-sm focus:outline-none focus:ring-2 focus:ring-rose-400">
+            <span class="font-bold text-rose-600 text-xs">VNĐ</span>
+          </div>
+
+          <!-- Nút chọn nhanh theo thời gian kết nạp -->
+          <div class="space-y-1 pt-1">
+            <span class="text-[11px] text-rose-600 font-bold block">⚡ Chọn nhanh mức đóng theo thời điểm kết nạp:</span>
+            <div class="grid grid-cols-3 gap-1.5 text-[11px] font-bold">
+              <button type="button" onclick="setModalDoanFeePreset(24000)" class="py-1.5 px-2 rounded-xl bg-white hover:bg-rose-100 border border-rose-200 text-rose-900 text-center">Cả năm (24k)</button>
+              <button type="button" onclick="setModalDoanFeePreset(18000)" class="py-1.5 px-2 rounded-xl bg-white hover:bg-rose-100 border border-rose-200 text-rose-900 text-center">9 tháng (18k)</button>
+              <button type="button" onclick="setModalDoanFeePreset(12000)" class="py-1.5 px-2 rounded-xl bg-white hover:bg-rose-100 border border-rose-200 text-rose-900 text-center">6 tháng (12k)</button>
+              <button type="button" onclick="setModalDoanFeePreset(6000)" class="py-1.5 px-2 rounded-xl bg-white hover:bg-rose-100 border border-rose-200 text-rose-900 text-center">3 thg - 26/3 (6k)</button>
+              <button type="button" onclick="setModalDoanFeePreset(4000)" class="py-1.5 px-2 rounded-xl bg-white hover:bg-rose-100 border border-rose-200 text-rose-900 text-center">2 thg - 19/5 (4k)</button>
+              <button type="button" onclick="setModalDoanFeePreset(0)" class="py-1.5 px-2 rounded-xl bg-white hover:bg-rose-100 border border-rose-200 text-rose-900 text-center">Miễn nộp (0đ)</button>
+            </div>
+          </div>
+        </div>
+
+        <div class="space-y-1">
+          <label class="font-black text-rose-900 text-xs">Trạng thái đóng phí:</label>
+          <div class="flex items-center gap-3">
+            <label class="flex items-center gap-1.5 cursor-pointer font-bold text-rose-950">
+              <input type="radio" name="modal-doan-paid" id="modal-doan-paid-true" value="true" class="accent-emerald-500">
+              <span class="text-emerald-700">✓ Đã nộp</span>
+            </label>
+            <label class="flex items-center gap-1.5 cursor-pointer font-bold text-rose-950">
+              <input type="radio" name="modal-doan-paid" id="modal-doan-paid-false" value="false" class="accent-rose-500">
+              <span class="text-rose-700">⏳ Chưa nộp</span>
+            </label>
+          </div>
+        </div>
+
+        <div class="space-y-1">
+          <label class="font-black text-rose-900 text-xs">Ghi chú riêng:</label>
+          <input type="text" id="modal-doan-stu-note" placeholder="Ví dụ: Đã thu ngày 15/9/2026, đợt 26/3..." class="w-full px-3 py-2 rounded-xl bg-white border border-rose-200 text-xs font-bold text-rose-950 focus:outline-none focus:ring-2 focus:ring-rose-400">
+        </div>
+      </div>
+
+      <div class="flex items-center justify-end gap-2 pt-2 border-t border-rose-100">
+        <button onclick="closeEditIndividualDoanModal()" class="liquid-btn-subtle px-3.5 py-1.5 rounded-xl text-xs font-bold">Hủy</button>
+        <button onclick="saveIndividualDoanMember()" class="liquid-btn-primary px-4 py-1.5 rounded-xl text-xs font-black shadow-xs">Lưu Thay Đổi</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- MODAL 3: KẾT QUẢ VÒNG QUAY MAY MẮN -->
+  <div id="modal-wheel-winner" class="fixed inset-0 z-50 bg-black/40 backdrop-blur-sm hidden items-center justify-center p-3 sm:p-4">
+    <div class="liquid-card max-w-sm w-full rounded-[32px] p-6 text-center space-y-4 border border-white">
+      <div class="w-16 h-16 mx-auto rounded-2xl bg-gradient-to-tr from-pink-400 to-rose-500 flex items-center justify-center text-3xl shadow-lg shadow-rose-300/50">
+        🎉
+      </div>
+      <div>
+        <span class="text-xs font-bold text-rose-500 uppercase tracking-widest block">CHÚC MỪNG BẠN</span>
+        <h3 id="wheel-winner-name" class="text-xl font-black text-rose-950 mt-1">Học sinh</h3>
+        <p id="wheel-winner-target" class="text-xs font-bold text-rose-600 mt-1">Quay ngẫu nhiên / Gọi trả bài 🌸</p>
+      </div>
+      <div id="wheel-winner-actions" class="flex items-center justify-center gap-2 pt-2 border-t border-rose-100">
+        <button onclick="closeWheelWinnerModal()" class="w-full liquid-btn-primary py-2.5 rounded-xl text-xs font-black shadow-sm">
+          ✅ Đã Xong
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <!-- MODAL 4: KẾT QUẢ GỌI TRẢ BÀI MIỆNG -->
+  <div id="modal-oral-result" class="fixed inset-0 z-50 bg-black/40 backdrop-blur-sm hidden items-center justify-center p-3 sm:p-4">
+    <div class="liquid-card max-w-sm w-full rounded-[32px] p-6 text-center space-y-4 border border-white">
+      <div class="w-16 h-16 mx-auto rounded-2xl bg-gradient-to-tr from-amber-400 to-rose-500 flex items-center justify-center text-3xl shadow-lg shadow-rose-300/50">
+        🎲
+      </div>
+      <div>
+        <span class="text-xs font-bold text-rose-500 uppercase tracking-widest block">LÊN BẢNG TRẢ BÀI MIỆNG</span>
+        <h3 id="oral-result-name" class="text-xl font-black text-rose-950 mt-1">Học sinh</h3>
+        <span id="oral-result-officer" class="inline-block mt-1 text-[11px] font-black px-2.5 py-0.5 rounded-full hidden"></span>
+        <p id="oral-result-seat" class="text-xs font-bold text-rose-600 mt-1">Tổ 1 • Bàn 1</p>
+      </div>
+      <div class="pt-2 border-t border-rose-100">
+        <button onclick="closeOralResultModal()" class="w-full liquid-btn-primary py-2.5 rounded-xl text-xs font-black shadow-sm">
+          ✨ Cố Lên Nhé!
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <!-- MODAL 5: KẾT QUẢ RÚT THĂM -->
+  <div id="modal-ticket-result" class="fixed inset-0 z-50 bg-black/40 backdrop-blur-sm hidden items-center justify-center p-3 sm:p-4">
+    <div class="liquid-card max-w-sm w-full rounded-[32px] p-6 text-center space-y-4 border border-white">
+      <div class="w-16 h-16 mx-auto rounded-2xl bg-gradient-to-tr from-rose-400 via-pink-400 to-amber-300 flex items-center justify-center text-3xl shadow-lg shadow-rose-300/50">
+        🎟️
+      </div>
+      <div>
+        <span class="text-xs font-bold text-rose-500 uppercase tracking-widest block">KẾT QUẢ RÚT THĂM</span>
+        <div id="ticket-result-container" class="space-y-2 mt-3 max-h-56 overflow-y-auto"></div>
+      </div>
+      <div class="pt-2 border-t border-rose-100">
+        <button onclick="closeTicketResultModal()" class="w-full liquid-btn-primary py-2.5 rounded-xl text-xs font-black shadow-sm">
+          ✅ Đóng
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <!-- MODAL 6: THÊM / SỬA HOẠT ĐỘNG -->
+  <div id="modal-activity" class="fixed inset-0 z-50 bg-black/40 backdrop-blur-sm hidden items-center justify-center p-3 sm:p-4">
+    <div class="liquid-card max-w-md w-full rounded-[32px] p-5 sm:p-6 space-y-3.5 border border-white">
+      <div class="flex items-center justify-between border-b border-rose-100 pb-2.5">
+        <h3 id="modal-activity-title" class="text-sm font-black text-rose-950 flex items-center gap-1.5">
+          <span>📢</span> Thêm Hoạt Động Mới
+        </h3>
+        <button onclick="closeActivityModal()" class="text-rose-400 hover:text-rose-700 text-xs font-bold">✕</button>
+      </div>
+      <input type="hidden" id="modal-activity-id">
+      <div class="space-y-1">
+        <label class="text-[11px] font-bold text-rose-800">Tên hoạt động:</label>
+        <input type="text" id="modal-activity-name" placeholder="Ví dụ: Hội diễn văn nghệ 20/11..." class="w-full px-3 py-2 rounded-xl bg-white border border-rose-200 text-xs font-bold text-rose-950 focus:outline-none focus:ring-2 focus:ring-rose-400">
+      </div>
+      <div class="grid grid-cols-2 gap-2">
+        <div class="space-y-1">
+          <label class="text-[11px] font-bold text-rose-800">Ngày bắt đầu:</label>
+          <input type="date" id="modal-activity-start-date" class="w-full px-3 py-2 rounded-xl bg-white border border-rose-200 text-xs font-bold text-rose-950 focus:outline-none">
+        </div>
+        <div class="space-y-1">
+          <label class="text-[11px] font-bold text-rose-800">Ngày kết thúc:</label>
+          <input type="date" id="modal-activity-end-date" class="w-full px-3 py-2 rounded-xl bg-white border border-rose-200 text-xs font-bold text-rose-950 focus:outline-none">
+        </div>
+      </div>
+      <div class="space-y-1">
+        <label class="text-[11px] font-bold text-rose-800">Số lượng học sinh cần:</label>
+        <input type="number" id="modal-activity-target" min="1" max="34" value="5" class="w-full px-3 py-2 rounded-xl bg-white border border-rose-200 text-xs font-bold text-rose-950 focus:outline-none">
+      </div>
+      <div class="space-y-1">
+        <label class="text-[11px] font-bold text-rose-800">Mô tả / Ghi chú:</label>
+        <textarea id="modal-activity-desc" rows="2" placeholder="Ghi chú thêm về hoạt động..." class="w-full px-3 py-2 rounded-xl bg-white border border-rose-200 text-xs font-bold text-rose-950 focus:outline-none"></textarea>
+      </div>
+      <div class="flex items-center justify-end gap-2 pt-2 border-t border-rose-100">
+        <button onclick="closeActivityModal()" class="liquid-btn-subtle px-3.5 py-1.5 rounded-xl text-xs font-bold">Hủy</button>
+        <button onclick="handleSaveActivity()" class="liquid-btn-primary px-4 py-1.5 rounded-xl text-xs font-black shadow-xs">Lưu Hoạt Động</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- MODAL 7: CHỈNH SỬA THÀNH VIÊN -->
+  <div id="modal-edit-student" class="fixed inset-0 z-50 bg-black/40 backdrop-blur-sm hidden items-center justify-center p-3 sm:p-4">
+    <div class="liquid-card max-w-sm w-full rounded-[32px] p-5 space-y-3.5 border border-white">
+      <div class="flex items-center justify-between border-b border-rose-100 pb-2">
+        <h3 class="text-sm font-black text-rose-950 flex items-center gap-1.5">
+          <span>✏️</span> Chỉnh Sửa Học Sinh
+        </h3>
+        <button onclick="closeEditStudentModal()" class="text-rose-400 hover:text-rose-700 text-xs font-bold">✕</button>
+      </div>
+      <input type="hidden" id="edit-student-id">
+      <div class="space-y-1">
+        <label class="text-[11px] font-bold text-rose-800">Họ và tên:</label>
+        <input type="text" id="edit-student-name" class="w-full px-3 py-2 rounded-xl bg-white border border-rose-200 text-xs font-bold text-rose-950 focus:outline-none focus:ring-2 focus:ring-rose-400">
+      </div>
+      <div class="space-y-1">
+        <label class="text-[11px] font-bold text-rose-800">Mã định danh:</label>
+        <input type="text" id="edit-student-code" class="w-full px-3 py-2 rounded-xl bg-white border border-rose-200 text-xs font-bold text-rose-950 focus:outline-none">
+      </div>
+      <div class="flex items-center justify-end gap-2 pt-2 border-t border-rose-100">
+        <button onclick="closeEditStudentModal()" class="liquid-btn-subtle px-3.5 py-1.5 rounded-xl text-xs font-bold">Hủy</button>
+        <button onclick="handleSaveStudent()" class="liquid-btn-primary px-4 py-1.5 rounded-xl text-xs font-black shadow-xs">Lưu Thay Đổi</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- MODAL 8: CÀI ĐẶT ĐOÀN PHÍ CHUNG -->
+  <div id="modal-doan-setting" class="fixed inset-0 z-50 bg-black/40 backdrop-blur-sm hidden items-center justify-center p-3 sm:p-4">
+    <div class="liquid-card max-w-sm w-full rounded-[32px] p-5 space-y-3.5 border border-white">
+      <div class="flex items-center justify-between border-b border-rose-100 pb-2">
+        <h3 class="text-sm font-black text-rose-950 flex items-center gap-1.5">
+          <span>⚙️</span> Cài Đặt Đoàn Phí Chung
+        </h3>
+        <button onclick="closeDoanSettingModal()" class="text-rose-400 hover:text-rose-700 text-xs font-bold">✕</button>
+      </div>
+      <div class="space-y-1">
+        <label class="text-[11px] font-bold text-rose-800">Mức đoàn phí mặc định (VNĐ):</label>
+        <input type="number" step="1000" id="setting-doan-fee" class="w-full px-3 py-2 rounded-xl bg-white border border-rose-200 text-xs font-bold text-rose-950 focus:outline-none focus:ring-2 focus:ring-rose-400">
+      </div>
+      <div class="space-y-1">
+        <label class="text-[11px] font-bold text-rose-800">Ngày vào Đoàn mặc định:</label>
+        <input type="date" id="setting-doan-date" class="w-full px-3 py-2 rounded-xl bg-white border border-rose-200 text-xs font-bold text-rose-950 focus:outline-none">
+      </div>
+      <div class="flex items-center justify-end gap-2 pt-2 border-t border-rose-100">
+        <button onclick="closeDoanSettingModal()" class="liquid-btn-subtle px-3.5 py-1.5 rounded-xl text-xs font-bold">Hủy</button>
+        <button onclick="saveDoanGeneralSettings()" class="liquid-btn-primary px-4 py-1.5 rounded-xl text-xs font-black shadow-xs">Lưu Cài Đặt</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- MODAL 9: CHỌN HỌC SINH THỦ CÔNG CHO HOẠT ĐỘNG -->
+  <div id="modal-manual-participants" class="fixed inset-0 z-50 bg-black/40 backdrop-blur-sm hidden items-center justify-center p-3 sm:p-4">
+    <div class="liquid-card max-w-md w-full rounded-[32px] p-5 sm:p-6 space-y-3.5 border border-white max-h-[90vh] flex flex-col">
+      <div class="flex items-center justify-between border-b border-rose-100 pb-2.5">
+        <h3 id="manual-participants-title" class="text-sm font-black text-rose-950 flex items-center gap-1.5">
+          <span>👥</span> Chọn Thành Viên Hoạt Động
+        </h3>
+        <button onclick="closeManualAddParticipantsModal()" class="text-rose-400 hover:text-rose-700 text-xs font-bold">✕</button>
+      </div>
+
+      <div class="space-y-2">
+        <div class="flex items-center gap-2">
+          <input type="text" id="manual-participants-search" oninput="renderManualStudentSelectionList()" placeholder="🔍 Tìm theo tên hoặc mã số..." class="flex-1 px-3 py-1.5 rounded-xl bg-white border border-rose-200 text-xs font-bold text-rose-950 focus:outline-none focus:ring-2 focus:ring-rose-400">
+          <span id="manual-participants-selected-count" class="text-[11px] font-black text-rose-700 whitespace-nowrap bg-rose-100 px-2.5 py-1.5 rounded-xl">Đã chọn: 0</span>
+        </div>
+        <div class="flex items-center gap-1.5 flex-wrap">
+          <button onclick="selectAllZeroActivityStudents()" class="text-[10px] font-black px-2.5 py-1 rounded-lg bg-amber-100 text-amber-900 border border-amber-300 hover:bg-amber-200">
+            ⭐ Chọn Bạn 0 HĐ
+          </button>
+          <button onclick="toggleSelectAllManual(true)" class="text-[10px] font-bold px-2 py-1 rounded-lg bg-rose-100 text-rose-800 hover:bg-rose-200">
+            Chọn tất cả
+          </button>
+          <button onclick="toggleSelectAllManual(false)" class="text-[10px] font-bold px-2 py-1 rounded-lg bg-white border border-rose-200 text-rose-600 hover:bg-rose-50">
+            Bỏ chọn hết
+          </button>
+        </div>
+      </div>
+
+      <div id="manual-participants-list" class="space-y-1.5 overflow-y-auto flex-1 pr-1 max-h-64"></div>
+
+      <div class="flex items-center justify-end gap-2 pt-2 border-t border-rose-100">
+        <button onclick="closeManualAddParticipantsModal()" class="liquid-btn-subtle px-4 py-2 rounded-xl text-xs font-black">Hủy</button>
+        <button onclick="saveManualAddParticipants()" class="liquid-btn-primary px-5 py-2 rounded-xl text-xs font-black shadow-sm">
+          <span>💾</span> Lưu Danh Sách
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <!-- MODAL 10: DANH SÁCH BẠN CHƯA THAM GIA HOẠT ĐỘNG -->
+  <div id="modal-unassigned-students" class="fixed inset-0 z-50 bg-black/40 backdrop-blur-sm hidden items-center justify-center p-3 sm:p-4">
+    <div class="liquid-card max-w-sm w-full rounded-[32px] p-5 space-y-3.5 border border-white max-h-[85vh] flex flex-col">
+      <div class="flex items-center justify-between border-b border-rose-100 pb-2.5">
+        <div>
+          <h3 class="text-sm font-black text-rose-950 flex items-center gap-1.5">
+            <span>⭐</span> Các Bạn Chưa Tham Gia Hoạt Động
+          </h3>
+          <span id="unassigned-students-count" class="text-[10px] text-rose-500 font-bold">0 bạn</span>
+        </div>
+        <button onclick="closeUnassignedStudentsModal()" class="text-rose-400 hover:text-rose-700 text-xs font-bold">✕</button>
+      </div>
+
+      <div id="unassigned-students-list" class="space-y-1.5 overflow-y-auto flex-1 pr-1 max-h-64"></div>
+
+      <div class="flex items-center justify-between gap-2 pt-2 border-t border-rose-100">
+        <button onclick="copyUnassignedStudentsList()" class="liquid-btn-primary px-3 py-1.5 rounded-xl text-xs font-black flex items-center gap-1 shadow-xs">
+          <span>📋</span> Sao Chép Gửi Zalo
+        </button>
+        <button onclick="closeUnassignedStudentsModal()" class="liquid-btn-subtle px-3.5 py-1.5 rounded-xl text-xs font-bold">Đóng</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- LINH VẬT BÉ HẠC HỒNG (ASSISTIVETOUCH) -->
+  <div class="fixed bottom-5 right-5 z-40 flex flex-col items-end">
+    <!-- Bóng thoại tin nhắn trò chuyện -->
+    <div id="mascot-speech-bubble" class="hidden mb-2 max-w-[210px] p-2.5 rounded-2xl liquid-card text-[11px] font-bold text-rose-950 shadow-lg border border-white animate-fade-in relative">
+      <span id="mascot-speech-text">Chào bạn! Mình là Bé Hạc Hồng 11V đây 🌸</span>
+      <div class="absolute -bottom-1.5 right-6 w-3 h-3 bg-white/80 rotate-45 border-r border-b border-rose-200/80"></div>
+    </div>
+
+    <!-- Menu thao tác nhanh AssistiveTouch -->
+    <div id="mascot-menu" class="hidden mb-2 p-2 rounded-2xl liquid-card shadow-xl border border-white space-y-1 w-44 text-xs font-bold text-rose-900">
+      <button onclick="quickMascotAction('oral')" class="w-full text-left px-2.5 py-1.5 rounded-xl hover:bg-rose-100/80 flex items-center gap-2">
+        <span>🎲</span> Gọi trả bài miệng
+      </button>
+      <button onclick="quickMascotAction('wheel')" class="w-full text-left px-2.5 py-1.5 rounded-xl hover:bg-rose-100/80 flex items-center gap-2">
+        <span>🎡</span> Vòng quay may mắn
+      </button>
+      <button onclick="quickMascotAction('ticket')" class="w-full text-left px-2.5 py-1.5 rounded-xl hover:bg-rose-100/80 flex items-center gap-2">
+        <span>🎟️</span> Bốc 1 lá thăm
+      </button>
+      <button onclick="quickMascotAction('doan')" class="w-full text-left px-2.5 py-1.5 rounded-xl hover:bg-rose-100/80 flex items-center gap-2">
+        <span>🎗️</span> Xem ai chưa nộp phí
+      </button>
+      <button onclick="quickMascotAction('sync')" class="w-full text-left px-2.5 py-1.5 rounded-xl hover:bg-rose-100/80 flex items-center gap-2 text-rose-600">
+        <span>☁️</span> Đồng bộ Zalo (JSON)
+      </button>
+    </div>
+
+    <!-- Nút linh vật tròn nổi AssistiveTouch -->
+    <button onclick="toggleMascotMenu()" id="btn-mascot" class="mascot-container w-14 h-14 rounded-full liquid-btn-primary flex items-center justify-center p-2 shadow-2xl active:scale-90 transition-transform">
+      <svg viewBox="0 0 100 100" class="w-full h-full drop-shadow-sm" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <polygon points="50,15 25,65 50,55" fill="#ffffff" opacity="0.95"/>
+        <polygon points="50,15 75,65 50,55" fill="#fecdd3" opacity="0.9"/>
+        <polygon points="25,65 5,45 35,55" class="mascot-wing" fill="#ffe4e6" opacity="0.9"/>
+        <polygon points="75,65 95,45 65,55" fill="#f43f5e" opacity="0.8"/>
+        <polygon points="50,55 50,90 25,65" fill="#e11d48"/>
+        <polygon points="50,55 50,90 75,65" fill="#be123c"/>
+        <polygon points="50,15 42,22 47,26" fill="#fde047"/>
+      </svg>
+    </button>
+  </div>
+
+  <!-- Thông báo Toast -->
+  <div id="toast" class="fixed top-5 right-5 z-50 transform translate-y-[-120%] opacity-0 transition-all duration-300 pointer-events-none liquid-card py-2.5 px-4 rounded-2xl shadow-xl flex items-center gap-2 text-xs font-black text-rose-950 border border-white">
+    <span id="toast-icon">🌸</span>
+    <span id="toast-message">Đã thực hiện xong!</span>
+  </div>
+
+  <script>
+    /* ==================== 1. DỮ LIỆU CHUẨN 34 HỌC SINH 11V ==================== */
+    const DEFAULT_STUDENTS = [
+      { id: "st-1", name: "Nguyễn Ngọc Lan Anh", code: "11V_1", doanDate: "2026-03-26", doanFeePaid: true, doanFee: 24000, doanNote: "Đã thu ngày 15/9/2026" },
+      { id: "st-2", name: "Võ Nguyễn Nhật Anh", code: "11V_2", doanDate: "2026-03-26", doanFeePaid: false, doanFee: 24000, doanNote: "" },
+      { id: "st-3", name: "Tạ Nguyễn Tuyết Anh", code: "11V_3", doanDate: "2026-03-26", doanFeePaid: false, doanFee: 24000, doanNote: "" },
+      { id: "st-4", name: "Bùi Thị Kim Anh", code: "11V_4", doanDate: "2026-03-26", doanFeePaid: false, doanFee: 24000, doanNote: "" },
+      { id: "st-5", name: "Nguyễn Ngọc Khánh Chi", code: "11V_5", doanDate: "2026-03-26", doanFeePaid: false, doanFee: 24000, doanNote: "" }, // TT4
+      { id: "st-6", name: "Trần Hiếu Dân", code: "11V_6", doanDate: "2026-03-26", doanFeePaid: false, doanFee: 24000, doanNote: "" },
+      { id: "st-7", name: "Huỳnh Tiến Đạt", code: "11V_7", doanDate: "2026-03-26", doanFeePaid: false, doanFee: 24000, doanNote: "" },
+      { id: "st-8", name: "Trần Khánh Hà", code: "11V_8", doanDate: "2026-03-26", doanFeePaid: false, doanFee: 24000, doanNote: "" },
+      { id: "st-9", name: "Trần Nguyễn Minh Hiếu", code: "11V_9", doanDate: "2026-03-26", doanFeePaid: false, doanFee: 24000, doanNote: "" },
+      { id: "st-10", name: "Trương Bùi Ngọc Hoa", code: "11V_10", doanDate: "2026-03-26", doanFeePaid: false, doanFee: 24000, doanNote: "" }, // TT1
+      { id: "st-11", name: "Nguyễn Hoàng Huy", code: "11V_11", doanDate: "2026-03-26", doanFeePaid: false, doanFee: 24000, doanNote: "" },
+      { id: "st-12", name: "Phạm Nguyễn Bảo Khang", code: "11V_12", doanDate: "2026-03-26", doanFeePaid: false, doanFee: 24000, doanNote: "" },
+      { id: "st-13", name: "Nguyễn Võ Trung Kiên", code: "11V_13", doanDate: "2026-03-26", doanFeePaid: false, doanFee: 24000, doanNote: "" }, // PBT
+      { id: "st-14", name: "Lê Thị Thảo Linh", code: "11V_14", doanDate: "2026-03-26", doanFeePaid: false, doanFee: 24000, doanNote: "" }, // LP
+      { id: "st-15", name: "Phạm Hồ Thanh Ngân", code: "11V_15", doanDate: "2026-03-26", doanFeePaid: false, doanFee: 24000, doanNote: "" },
+      { id: "st-16", name: "Trần Thị Thảo Ngân", code: "11V_16", doanDate: "2026-03-26", doanFeePaid: false, doanFee: 24000, doanNote: "" },
+      { id: "st-17", name: "Trần Nguyễn Như Ngọc", code: "11V_17", doanDate: "2026-03-26", doanFeePaid: false, doanFee: 24000, doanNote: "" },
+      { id: "st-18", name: "Lê Ngọc Đan Nhi", code: "11V_18", doanDate: "2026-03-26", doanFeePaid: false, doanFee: 24000, doanNote: "" },
+      { id: "st-19", name: "Huỳnh Thị Yến Nhi", code: "11V_19", doanDate: "2026-03-26", doanFeePaid: false, doanFee: 24000, doanNote: "" },
+      { id: "st-20", name: "Nguyễn Hoàng Phúc", code: "11V_20", doanDate: "2026-03-26", doanFeePaid: false, doanFee: 24000, doanNote: "" },
+      { id: "st-21", name: "Lê Thiên Phúc", code: "11V_21", doanDate: "2026-03-26", doanFeePaid: false, doanFee: 24000, doanNote: "" },
+      { id: "st-22", name: "Lê Hoàng Mỹ Phương", code: "11V_22", doanDate: "2026-03-26", doanFeePaid: false, doanFee: 24000, doanNote: "" }, // VN
+      { id: "st-23", name: "Lê Bảo Quân", code: "11V_23", doanDate: "2026-03-26", doanFeePaid: false, doanFee: 24000, doanNote: "" },
+      { id: "st-24", name: "Lưu Văn Quốc Thái", code: "11V_24", doanDate: "2026-03-26", doanFeePaid: false, doanFee: 24000, doanNote: "" },
+      { id: "st-25", name: "Trần Phước Thịnh", code: "11V_25", doanDate: "2026-03-26", doanFeePaid: false, doanFee: 24000, doanNote: "" },
+      { id: "st-26", name: "Võ Văn Trường Thọ", code: "11V_26", doanDate: "2025-09-06", doanFeePaid: true, doanFee: 24000, doanNote: "" }, // BT & TT3
+      { id: "st-27", name: "Nguyễn Ngô Hoài Thơ", code: "11V_27", doanDate: "2026-03-26", doanFeePaid: false, doanFee: 24000, doanNote: "" },
+      { id: "st-28", name: "Phan Anh Thuấn", code: "11V_28", doanDate: "2026-03-26", doanFeePaid: false, doanFee: 24000, doanNote: "" }, // TT2
+      { id: "st-29", name: "Nguyễn Thông Phước Thủy", code: "11V_29", doanDate: "2026-03-26", doanFeePaid: false, doanFee: 24000, doanNote: "" },
+      { id: "st-30", name: "Trần Minh Thư", code: "11V_30", doanDate: "2026-03-26", doanFeePaid: false, doanFee: 24000, doanNote: "" }, // LT
+      { id: "st-31", name: "Nguyễn Ngọc Bảo Tuyên", code: "11V_31", doanDate: "2026-03-26", doanFeePaid: false, doanFee: 24000, doanNote: "" },
+      { id: "st-32", name: "Trần Lê Hoài Vân", code: "11V_32", doanDate: "2026-03-26", doanFeePaid: false, doanFee: 24000, doanNote: "" },
+      { id: "st-33", name: "Vương Hoàng Yến Vy", code: "11V_33", doanDate: "2026-03-26", doanFeePaid: false, doanFee: 24000, doanNote: "" },
+      { id: "st-34", name: "Nguyễn Thị Thúy Vy", code: "11V_34", doanDate: "2026-03-26", doanFeePaid: false, doanFee: 24000, doanNote: "" }
+    ];
+
+    /* Định nghĩa Ban Cán Sự Lớp 11V */
+    const OFFICER_DEFINITIONS = {
+      "11V_30": { role: "Lớp Trưởng", shortRole: "👑 Lớp Trưởng", glowClass: "officer-glow-lt", badgeClass: "bg-amber-100 text-amber-900 border-amber-300" },
+      "11V_14": { role: "Lớp Phó Học Tập", shortRole: "📘 LP Học Tập", glowClass: "officer-glow-lp", badgeClass: "bg-teal-100 text-teal-900 border-teal-300" },
+      "11V_26": { role: "Bí Thư • TT Tổ 3", shortRole: "🎗️ Bí Thư", glowClass: "officer-glow-bt", badgeClass: "bg-rose-100 text-rose-900 border-rose-300" },
+      "11V_13": { role: "Phó Bí Thư", shortRole: "⚡ Phó Bí Thư", glowClass: "officer-glow-pbt", badgeClass: "bg-purple-100 text-purple-900 border-purple-300" },
+      "11V_22": { role: "Phó Văn Nghệ", shortRole: "🎨 Phó Văn Nghệ", glowClass: "officer-glow-vn", badgeClass: "bg-pink-100 text-pink-900 border-pink-300" },
+      "11V_10": { role: "Tổ Trưởng Tổ 1", shortRole: "⭐ TT Tổ 1", glowClass: "officer-glow-tt", badgeClass: "bg-emerald-100 text-emerald-900 border-emerald-300" },
+      "11V_28": { role: "Tổ Trưởng Tổ 2", shortRole: "⭐ TT Tổ 2", glowClass: "officer-glow-tt", badgeClass: "bg-emerald-100 text-emerald-900 border-emerald-300" },
+      "11V_5":  { role: "Tổ Trưởng Tổ 4", shortRole: "⭐ TT Tổ 4", glowClass: "officer-glow-tt", badgeClass: "bg-emerald-100 text-emerald-900 border-emerald-300" }
+    };
+
+    function getClassOfficer(studentOrId) {
+      if (!studentOrId) return null;
+      let code = null;
+      if (typeof studentOrId === 'object') {
+        code = studentOrId.code || studentOrId.id;
+      } else {
+        code = studentOrId;
+      }
+      if (OFFICER_DEFINITIONS[code]) return OFFICER_DEFINITIONS[code];
+      const m = String(code).match(/^st-(\d+)$/);
+      if (m) {
+        const c = `11V_${m[1]}`;
+        if (OFFICER_DEFINITIONS[c]) return OFFICER_DEFINITIONS[c];
+      }
+      const stu = students.find(s => s.id === code || s.code === code);
+      if (stu && stu.code && OFFICER_DEFINITIONS[stu.code]) {
+        return OFFICER_DEFINITIONS[stu.code];
+      }
+      return null;
+    }
+
+    /* Khởi tạo trạng thái thực tế của lớp 11V */
+    let students = JSON.parse(JSON.stringify(DEFAULT_STUDENTS));
+    let activities = [
+      { id: "act-1789404811901", name: "Chương trình khởi động 1000 ngày ở Chiểu", date: "2026-08-26", startDate: "2026-08-26", endDate: "2026-08-26", target: 6, description: "", participants: ["st-3","st-6","st-10","st-15","st-25","st-28"] },
+      { id: "act-1789405134313", name: "Sinh hoạt kĩ năng sống cho học sinh", date: "2026-08-28", startDate: "2026-08-28", endDate: "2026-08-28", target: 3, description: "", participants: ["st-26","st-21"] },
+      { id: "act-1789405220842", name: "Dự đại hội Đoàn", date: "2026-09-17", startDate: "2026-09-17", endDate: "2026-09-17", target: 3, description: "", participants: ["st-26","st-20","st-13"] },
+      { id: "act-1789986567793", name: "S-Race School Online 2026", date: "2026-10-03", startDate: "2026-10-03", endDate: "2026-10-03", target: 4, description: "", participants: ["st-8","st-2","st-24","st-30"] },
+      { id: "act-1790483622365", name: "Cuộc thi Xây dựng tình bạn đẹp", date: "2026-10-12", startDate: "2026-10-12", endDate: "2026-10-12", target: 5, description: "", participants: ["st-29","st-32","st-34","st-9","st-1"] },
+      { id: "act-1790484046396", name: "TÌM HIỂU PHÁP LUẬT VỀ PHÒNG, CHỐNG MA TÚY", date: "2026-09-30", startDate: "2026-09-30", endDate: "2026-09-30", target: 5, description: "", participants: ["st-14","st-28","st-26","st-30","st-7"] }
+    ];
+
+    let seatingGrid = {};
+    // Khởi tạo sơ đồ chỗ ngồi chuẩn theo dữ liệu của bạn
+    const INITIAL_SEATS = [
+      {"id":"seat-1-1-Trái","to":1,"ban":1,"pos":"Trái","studentId":null},
+      {"id":"seat-1-1-Phải","to":1,"ban":1,"pos":"Phải","studentId":"st-25"},
+      {"id":"seat-1-2-Trái","to":1,"ban":2,"pos":"Trái","studentId":"st-10"},
+      {"id":"seat-1-2-Phải","to":1,"ban":2,"pos":"Phải","studentId":"st-27"},
+      {"id":"seat-1-3-Trái","to":1,"ban":3,"pos":"Trái","studentId":"st-4"},
+      {"id":"seat-1-3-Phải","to":1,"ban":3,"pos":"Phải","studentId":null},
+      {"id":"seat-1-4-Trái","to":1,"ban":4,"pos":"Trái","studentId":"st-23"},
+      {"id":"seat-1-4-Phải","to":1,"ban":4,"pos":"Phải","studentId":"st-9"},
+      {"id":"seat-1-5-Trái","to":1,"ban":5,"pos":"Trái","studentId":"st-32"},
+      {"id":"seat-1-5-Phải","to":1,"ban":5,"pos":"Phải","studentId":"st-21"},
+      {"id":"seat-2-1-Trái","to":2,"ban":1,"pos":"Trái","studentId":"st-28"},
+      {"id":"seat-2-1-Phải","to":2,"ban":1,"pos":"Phải","studentId":"st-8"},
+      {"id":"seat-2-2-Trái","to":2,"ban":2,"pos":"Trái","studentId":"st-22"},
+      {"id":"seat-2-2-Phải","to":2,"ban":2,"pos":"Phải","studentId":"st-33"},
+      {"id":"seat-2-3-Trái","to":2,"ban":3,"pos":"Trái","studentId":"st-2"},
+      {"id":"seat-2-3-Phải","to":2,"ban":3,"pos":"Phải","studentId":"st-29"},
+      {"id":"seat-2-4-Trái","to":2,"ban":4,"pos":"Trái","studentId":"st-31"},
+      {"id":"seat-2-4-Phải","to":2,"ban":4,"pos":"Phải","studentId":null},
+      {"id":"seat-2-5-Trái","to":2,"ban":5,"pos":"Trái","studentId":"st-16"},
+      {"id":"seat-2-5-Phải","to":2,"ban":5,"pos":"Phải","studentId":"st-11"},
+      {"id":"seat-3-1-Trái","to":3,"ban":1,"pos":"Trái","studentId":"st-15"},
+      {"id":"seat-3-1-Phải","to":3,"ban":1,"pos":"Phải","studentId":"st-14"},
+      {"id":"seat-3-2-Trái","to":3,"ban":2,"pos":"Trái","studentId":"st-13"},
+      {"id":"seat-3-2-Phải","to":3,"ban":2,"pos":"Phải","studentId":"st-26"},
+      {"id":"seat-3-3-Trái","to":3,"ban":3,"pos":"Trái","studentId":"st-34"},
+      {"id":"seat-3-3-Phải","to":3,"ban":3,"pos":"Phải","studentId":"st-1"},
+      {"id":"seat-3-4-Trái","to":3,"ban":4,"pos":"Trái","studentId":"st-6"},
+      {"id":"seat-3-4-Phải","to":3,"ban":4,"pos":"Phải","studentId":"st-3"},
+      {"id":"seat-3-5-Trái","to":3,"ban":5,"pos":"Trái","studentId":"st-12"},
+      {"id":"seat-3-5-Phải","to":3,"ban":5,"pos":"Phải","studentId":"st-20"},
+      {"id":"seat-4-1-Trái","to":4,"ban":1,"pos":"Trái","studentId":"st-30"},
+      {"id":"seat-4-1-Phải","to":4,"ban":1,"pos":"Phải","studentId":"st-24"},
+      {"id":"seat-4-2-Trái","to":4,"ban":2,"pos":"Trái","studentId":"st-7"},
+      {"id":"seat-4-2-Phải","to":4,"ban":2,"pos":"Phải","studentId":"st-17"},
+      {"id":"seat-4-3-Trái","to":4,"ban":3,"pos":"Trái","studentId":"st-5"},
+      {"id":"seat-4-3-Phải","to":4,"ban":3,"pos":"Phải","studentId":"st-18"},
+      {"id":"seat-4-4-Trái","to":4,"ban":4,"pos":"Trái","studentId":"st-19"},
+      {"id":"seat-4-4-Phải","to":4,"ban":4,"pos":"Phải","studentId":null},
+      {"id":"seat-4-5-Trái","to":4,"ban":5,"pos":"Trái","studentId":null},
+      {"id":"seat-4-5-Phải","to":4,"ban":5,"pos":"Phải","studentId":null}
+    ];
+    INITIAL_SEATS.forEach(s => {
+      seatingGrid[`seat-${s.to}-${s.ban}-${s.pos}`] = s.studentId;
+    });
+
+    let doanFeeRate = 24000;
+    let defaultDoanDate = "2026-03-26";
+    let tickets = [];
+    let spinHistory = [
+      {"studentName":"Nguyễn Ngọc Lan Anh","type":"activity","targetName":"Cuộc thi Xây dựng tình bạn đẹp","timestamp":"11:35:05"},
+      {"studentName":"Trần Nguyễn Minh Hiếu","type":"activity","targetName":"Cuộc thi Xây dựng tình bạn đẹp","timestamp":"11:34:48"},
+      {"studentName":"Nguyễn Thị Thúy Vy","type":"activity","targetName":"Cuộc thi Xây dựng tình bạn đẹp","timestamp":"11:34:39"},
+      {"studentName":"Trần Lê Hoài Vân","type":"activity","targetName":"Cuộc thi Xây dựng tình bạn đẹp","timestamp":"11:34:28"},
+      {"studentName":"Nguyễn Thông Phước Thủy","type":"activity","targetName":"Cuộc thi Xây dựng tình bạn đẹp","timestamp":"11:34:16"},
+      {"studentName":"Lưu Văn Quốc Thái","type":"activity","targetName":"S-Race School Online 2026","timestamp":"20:41:10"},
+      {"studentName":"Võ Nguyễn Nhật Anh","type":"activity","targetName":"S-Race School Online 2026","timestamp":"20:40:35"},
+      {"studentName":"Trần Khánh Hà","type":"activity","targetName":"S-Race School Online 2026","timestamp":"20:39:55"}
+    ];
+
+    function getTwoWordName(fullName) {
+      if (!fullName) return "";
+      const parts = fullName.trim().split(/\s+/);
+      if (parts.length <= 2) return fullName.trim();
+      return parts.slice(-2).join(" ");
+    }
+
+    let audioCtx = null;
+    function getAudioContext() {
+      if (!audioCtx) audioCtx = new (window.AudioContext || window.webkitAudioContext)();
+      if (audioCtx.state === 'suspended') audioCtx.resume();
+      return audioCtx;
+    }
+    function playBeep(freq = 600, type = 'sine', duration = 0.05) {
+      try {
+        const ctx = getAudioContext();
+        const osc = ctx.createOscillator();
+        const gain = ctx.createGain();
+        osc.type = type;
+        osc.frequency.setValueAtTime(freq, ctx.currentTime);
+        gain.gain.setValueAtTime(0.12, ctx.currentTime);
+        gain.gain.exponentialRampToValueAtTime(0.001, ctx.currentTime + duration);
+        osc.connect(gain);
+        gain.connect(ctx.destination);
+        osc.start();
+        osc.stop(ctx.currentTime + duration);
+      } catch (e) {}
+    }
+    function playWinSound() {
+      try {
+        const notes = [523.25, 659.25, 783.99, 1046.50];
+        notes.forEach((freq, idx) => {
+          setTimeout(() => playBeep(freq, 'triangle', 0.25), idx * 90);
+        });
+      } catch (e) {}
+    }
+
+    let selectedFirstSeatKey = null;
+
+    function renderSeatingGrid() {
+      const container = document.getElementById("seating-grid-container");
+      if (!container) return;
+
+      container.innerHTML = [1, 2, 3, 4].map(toNum => {
+        let rowsHtml = '';
+        for (let r = 1; r <= 6; r++) {
+          const seatLeftKey = `seat-${toNum}-${r}-Trái`;
+          const seatRightKey = `seat-${toNum}-${r}-Phải`;
+
+          const stuLeftId = seatingGrid[seatLeftKey];
+          const stuRightId = seatingGrid[seatRightKey];
+
+          const stuLeft = students.find(s => s.id === stuLeftId || s.code === stuLeftId);
+          const stuRight = students.find(s => s.id === stuRightId || s.code === stuRightId);
+
+          const officerLeft = getClassOfficer(stuLeft);
+          const officerRight = getClassOfficer(stuRight);
+
+          const isLeftSelected = selectedFirstSeatKey === seatLeftKey;
+          const isRightSelected = selectedFirstSeatKey === seatRightKey;
+
+          rowsHtml += `
+            <div class="p-2 rounded-2xl bg-white/70 border border-rose-100/90 shadow-xs space-y-1.5 transition-all">
+              <div class="flex items-center justify-between text-[10px] font-black text-rose-400 px-1">
+                <span>Bàn ${r}</span>
+                <span class="text-[9px] text-rose-300">${toNum === 4 && r === 1 ? '👩‍🏫 Sau GV' : ''}</span>
+              </div>
+              <div class="grid grid-cols-2 gap-1.5">
+                <!-- Ghế 1 (Trái) -->
+                <button onclick="handleSeatClick('${seatLeftKey}')" id="${seatLeftKey}" class="min-h-[46px] p-1.5 rounded-xl border flex flex-col items-center justify-center text-center transition-all ${isLeftSelected ? 'ring-2 ring-rose-500 bg-rose-100' : ''} ${officerLeft ? officerLeft.glowClass : (stuLeft ? 'bg-gradient-to-tr from-white to-pink-50/70 border-rose-200/90 hover:border-rose-400' : 'bg-white/40 border-dashed border-rose-200 text-rose-300')}">
+                  ${stuLeft ? `
+                    <span class="text-xs font-black text-rose-950 leading-tight block">${getTwoWordName(stuLeft.name)}</span>
+                    ${officerLeft ? `<span class="text-[8px] font-bold px-1 rounded-full ${officerLeft.badgeClass} mt-0.5">${officerLeft.shortRole}</span>` : ''}
+                  ` : `<span class="text-rose-300 font-bold text-xs">—</span>`}
+                </button>
+                <!-- Ghế 2 (Phải) -->
+                <button onclick="handleSeatClick('${seatRightKey}')" id="${seatRightKey}" class="min-h-[46px] p-1.5 rounded-xl border flex flex-col items-center justify-center text-center transition-all ${isRightSelected ? 'ring-2 ring-rose-500 bg-rose-100' : ''} ${officerRight ? officerRight.glowClass : (stuRight ? 'bg-gradient-to-tr from-white to-pink-50/70 border-rose-200/90 hover:border-rose-400' : 'bg-white/40 border-dashed border-rose-200 text-rose-300')}">
+                  ${stuRight ? `
+                    <span class="text-xs font-black text-rose-950 leading-tight block">${getTwoWordName(stuRight.name)}</span>
+                    ${officerRight ? `<span class="text-[8px] font-bold px-1 rounded-full ${officerRight.badgeClass} mt-0.5">${officerRight.shortRole}</span>` : ''}
+                  ` : `<span class="text-rose-300 font-bold text-xs">—</span>`}
+                </button>
+              </div>
+            </div>
+          `;
+        }
+
+        return `
+          <div class="liquid-card-subtle p-3 rounded-2xl space-y-2 border border-rose-200/60">
+            <div class="text-center font-black text-xs uppercase tracking-wider text-rose-900 pb-1.5 border-b border-rose-200/60 flex items-center justify-center gap-1.5">
+              <span>🌸</span> Tổ ${toNum}
+            </div>
+            <div class="space-y-2">
+              ${rowsHtml}
+            </div>
+          </div>
+        `;
+      }).join("");
+    }
+
+    function handleSeatClick(seatKey) {
+      if (!selectedFirstSeatKey) {
+        selectedFirstSeatKey = seatKey;
+        renderSeatingGrid();
+        showToast("Đã chọn ghế 1! Nhấp tiếp ghế thứ 2 để hoán đổi chỗ", "🪑");
+      } else {
+        const keyA = selectedFirstSeatKey;
+        const keyB = seatKey;
+        const temp = seatingGrid[keyA];
+        seatingGrid[keyA] = seatingGrid[keyB];
+        seatingGrid[keyB] = temp;
+
+        selectedFirstSeatKey = null;
+        saveToLocalStorage();
+        renderSeatingGrid();
+        playBeep(650, 'sine', 0.08);
+        showToast("Đã hoán đổi chỗ ngồi thành công!", "✨");
+      }
+    }
+
+    function autoFillSeating() {
+      const keys = [];
+      for (let r = 1; r <= 6; r++) {
+        for (let t = 1; t <= 4; t++) {
+          keys.push(`seat-${t}-${r}-Trái`);
+          keys.push(`seat-${t}-${r}-Phải`);
+        }
+      }
+      seatingGrid = {};
+      students.forEach((st, idx) => {
+        if (idx < keys.length) seatingGrid[keys[idx]] = st.id;
+      });
+      saveToLocalStorage();
+      renderSeatingGrid();
+      showToast("Đã tự động xếp 34 bạn vào sơ đồ!", "⚡");
+    }
+
+    function clearAllSeats() {
+      seatingGrid = {};
+      saveToLocalStorage();
+      renderSeatingGrid();
+      showToast("Đã làm trống sơ đồ lớp!", "🧹");
+    }
+
+    function focusOfficerSeat(officerCodeOrId) {
+      const stu = students.find(s => s.code === officerCodeOrId || s.id === officerCodeOrId);
+      if (!stu) return;
+
+      let targetSeatKey = null;
+      for (const [k, v] of Object.entries(seatingGrid)) {
+        if (v === stu.id || v === stu.code) {
+          targetSeatKey = k;
+          break;
+        }
+      }
+      if (!targetSeatKey) {
+        showToast(`${stu.name} hiện chưa được xếp vào chỗ ngồi nào!`, "⚠️");
+        return;
+      }
+      switchTab('seating');
+      const el = document.getElementById(targetSeatKey);
+      if (el) {
+        el.scrollIntoView({ behavior: 'smooth', block: 'center' });
+        el.classList.add("seat-winner-glow");
+        setTimeout(() => el.classList.remove("seat-winner-glow"), 2500);
+        playBeep(880, 'triangle', 0.15);
+        const officer = getClassOfficer(stu);
+        showToast(`📍 Vị trí của ${officer ? officer.role : ''} ${stu.name}`, "👑");
+      }
+    }
+
+    /* Quay gọi trả bài miệng */
+    let isCallingOral = false;
+    function startCallOralExam() {
+      if (isCallingOral) return;
+      const occupiedSeats = Object.entries(seatingGrid).filter(([k, v]) => v);
+      if (occupiedSeats.length === 0) {
+        showToast("Sơ đồ chưa có học sinh nào ngồi bàn!", "⚠️");
+        return;
+      }
+      isCallingOral = true;
+      const btn = document.getElementById("btn-call-oral");
+      if (btn) btn.disabled = true;
+
+      let speed = 40;
+      let counter = 0;
+      const maxRolls = 28 + Math.floor(Math.random() * 12);
+      let lastSeatKey = null;
+
+      function step() {
+        if (lastSeatKey) {
+          const prevEl = document.getElementById(lastSeatKey);
+          if (prevEl) prevEl.classList.remove("seat-calling-pulse");
+        }
+        const pick = occupiedSeats[Math.floor(Math.random() * occupiedSeats.length)];
+        lastSeatKey = pick[0];
+        const currEl = document.getElementById(lastSeatKey);
+        if (currEl) currEl.classList.add("seat-calling-pulse");
+        playBeep(450 + (counter * 12), 'sine', 0.03);
+
+        counter++;
+        if (counter < maxRolls) {
+          speed += 12;
+          setTimeout(step, speed);
+        } else {
+          if (currEl) {
+            currEl.classList.remove("seat-calling-pulse");
+            currEl.classList.add("seat-winner-glow");
+            setTimeout(() => currEl.classList.remove("seat-winner-glow"), 4000);
+          }
+          isCallingOral = false;
+          if (btn) btn.disabled = false;
+
+          const winnerStudent = students.find(s => s.id === pick[1] || s.code === pick[1]);
+          const officer = getClassOfficer(winnerStudent);
+
+          const m = pick[0].match(/seat-(\d+)-(\d+)-(Trái|Phải)/);
+          const seatDesc = m ? `Tổ ${m[1]} • Bàn ${m[2]} • Ghế ${m[3]}` : '';
+
+          const nameEl = document.getElementById("oral-result-name");
+          if (nameEl) nameEl.innerText = winnerStudent ? winnerStudent.name : "Học sinh";
+          const seatEl = document.getElementById("oral-result-seat");
+          if (seatEl) seatEl.innerText = seatDesc;
+          const offEl = document.getElementById("oral-result-officer");
+          if (offEl) {
+            if (officer) {
+              offEl.innerText = officer.role;
+              offEl.className = `inline-block mt-1 text-[11px] font-black px-2.5 py-0.5 rounded-full ${officer.badgeClass}`;
+              offEl.classList.remove("hidden");
+            } else {
+              offEl.classList.add("hidden");
+            }
+          }
+
+          spinHistory.unshift({
+            studentName: winnerStudent ? winnerStudent.name : "Học sinh",
+            type: "oral",
+            targetName: `Trả bài miệng (${seatDesc})`,
+            timestamp: new Date().toLocaleTimeString('vi-VN', { hour: '2-digit', minute: '2-digit', second: '2-digit' })
+          });
+          renderSpinHistory();
+          saveToLocalStorage();
+
+          if (typeof confetti === 'function') confetti({ particleCount: 70, spread: 70, origin: { y: 0.6 } });
+          playWinSound();
+
+          const modal = document.getElementById("modal-oral-result");
+          if (modal) {
+            modal.classList.remove("hidden");
+            modal.classList.add("flex");
+          }
+        }
+      }
+      step();
+    }
+
+    function closeOralResultModal() {
+      const modal = document.getElementById("modal-oral-result");
+      if (modal) {
+        modal.classList.add("hidden");
+        modal.classList.remove("flex");
+      }
+    }
+
+    function renderDoanTable() {
+      const tbody = document.getElementById("doan-table-body");
+      if (!tbody) return;
+
+      let paidCount = 0;
+      let totalCollected = 0;
+      let totalExpected = 0;
+
+      tbody.innerHTML = students.map((st, idx) => {
+        const fee = (st.doanFee !== undefined && st.doanFee !== null && st.doanFee !== "") ? Number(st.doanFee) : doanFeeRate;
+        totalExpected += fee;
+        if (st.doanFeePaid) {
+          paidCount++;
+          totalCollected += fee;
+        }
+        const officer = getClassOfficer(st);
+        const isCustomFee = fee !== doanFeeRate;
+
+        return `
+          <tr class="hover:bg-rose-50/50 transition-colors">
+            <td class="py-2.5 px-3 font-bold text-rose-400">${idx + 1}</td>
+            <td class="py-2.5 px-3">
+              <div class="font-black text-rose-950 flex items-center gap-1.5 flex-wrap">
+                <span>${st.name}</span>
+                ${officer ? `<span class="text-[9px] font-bold px-1.5 py-0.5 rounded-full ${officer.glowClass}">${officer.shortRole}</span>` : ''}
+              </div>
+              <span class="text-[10px] text-rose-400 font-bold">${st.code}</span>
+            </td>
+            <td class="py-2.5 px-3">
+              <input type="date" value="${st.doanDate || defaultDoanDate}" onchange="updateStudentDoanDate('${st.id}', this.value)" class="px-2 py-1 rounded-xl text-xs bg-white/90 border border-rose-200 text-rose-950 font-bold focus:outline-none w-32 shadow-xs">
+            </td>
+            <td class="py-2.5 px-3">
+              <div class="space-y-1">
+                <div class="flex items-center gap-1">
+                  <input type="number" step="1000" min="0" value="${fee}" onchange="updateStudentDoanFee('${st.id}', this.value)" class="px-2 py-1 rounded-xl text-xs bg-white border ${isCustomFee ? 'border-amber-400 bg-amber-50/60 font-black' : 'border-rose-200 font-bold'} text-rose-950 focus:outline-none w-24 text-right shadow-xs">
+                  <span class="text-[11px] font-bold text-rose-400">đ</span>
+                  <button onclick="openEditIndividualDoanModal('${st.id}')" title="Chỉnh mức phí riêng và ghi chú" class="p-1 rounded-lg hover:bg-rose-100 text-rose-600 transition-colors">
+                    ✏️
+                  </button>
+                </div>
+                <!-- Nút gán nhanh mức phí -->
+                <div class="flex items-center gap-1 flex-wrap">
+                  <button type="button" onclick="setQuickStudentFee('${st.id}', 24000)" class="text-[9px] px-1.5 py-0.5 rounded font-bold transition-all ${fee === 24000 ? 'bg-rose-500 text-white shadow-xs' : 'bg-rose-100/80 text-rose-700 hover:bg-rose-200'}">24k</button>
+                  <button type="button" onclick="setQuickStudentFee('${st.id}', 18000)" class="text-[9px] px-1.5 py-0.5 rounded font-bold transition-all ${fee === 18000 ? 'bg-rose-500 text-white shadow-xs' : 'bg-rose-100/80 text-rose-700 hover:bg-rose-200'}">18k</button>
+                  <button type="button" onclick="setQuickStudentFee('${st.id}', 12000)" class="text-[9px] px-1.5 py-0.5 rounded font-bold transition-all ${fee === 12000 ? 'bg-rose-500 text-white shadow-xs' : 'bg-rose-100/80 text-rose-700 hover:bg-rose-200'}">12k</button>
+                  <button type="button" onclick="setQuickStudentFee('${st.id}', 6000)" class="text-[9px] px-1.5 py-0.5 rounded font-bold transition-all ${fee === 6000 ? 'bg-rose-500 text-white shadow-xs' : 'bg-rose-100/80 text-rose-700 hover:bg-rose-200'}">6k</button>
+                  <button type="button" onclick="setQuickStudentFee('${st.id}', 0)" class="text-[9px] px-1.5 py-0.5 rounded font-bold transition-all ${fee === 0 ? 'bg-rose-500 text-white shadow-xs' : 'bg-rose-100/80 text-rose-700 hover:bg-rose-200'}">0đ</button>
+                </div>
+              </div>
+            </td>
+            <td class="py-2.5 px-3 text-center">
+              <button onclick="toggleDoanPayment('${st.id}')" class="px-3 py-1 rounded-full text-xs font-black transition-transform active:scale-95 shadow-xs ${st.doanFeePaid ? 'bg-emerald-100 text-emerald-800 border border-emerald-300' : 'bg-rose-100 text-rose-800 border border-rose-300'}">
+                ${st.doanFeePaid ? '✓ Đã Nộp' : '⏳ Chưa Nộp'}
+              </button>
+            </td>
+            <td class="py-2.5 px-3 text-right">
+              <div class="flex items-center justify-end gap-1.5">
+                <input type="text" value="${st.doanNote || ''}" onchange="updateStudentDoanNote('${st.id}', this.value)" placeholder="Ghi chú..." class="px-2 py-1 rounded-xl text-xs bg-white/80 border border-rose-200 text-rose-950 focus:outline-none w-28">
+                <button onclick="openEditIndividualDoanModal('${st.id}')" class="px-2 py-1 rounded-xl bg-rose-50 hover:bg-rose-100 text-rose-800 text-[11px] font-bold border border-rose-200">
+                  Chi tiết
+                </button>
+              </div>
+            </td>
+          </tr>
+        `;
+      }).join("");
+
+      const totalCount = students.length;
+      document.getElementById("doan-stat-total").innerText = `${totalCount} bạn (100%)`;
+      document.getElementById("doan-stat-paid").innerText = `${paidCount} / ${totalCount} bạn`;
+      document.getElementById("doan-stat-fund").innerHTML = `
+        <span class="text-emerald-700 font-black">${totalCollected.toLocaleString('vi-VN')} đ</span>
+        <span class="text-xs font-normal text-rose-400"> / Cần: ${totalExpected.toLocaleString('vi-VN')} đ</span>
+      `;
+    }
+
+    function toggleDoanPayment(stuId) {
+      const st = students.find(s => s.id === stuId || s.code === stuId);
+      if (!st) return;
+      st.doanFeePaid = !st.doanFeePaid;
+      saveToLocalStorage();
+      renderDoanTable();
+      playBeep(st.doanFeePaid ? 750 : 400, 'sine', 0.08);
+    }
+
+    function updateStudentDoanFee(stuId, feeValue) {
+      const st = students.find(s => s.id === stuId || s.code === stuId);
+      if (!st) return;
+      const val = parseInt(feeValue, 10);
+      st.doanFee = isNaN(val) ? doanFeeRate : Math.max(0, val);
+      saveToLocalStorage();
+      renderDoanTable();
+      showToast("Đã cập nhật mức đoàn phí riêng!", "💰");
+    }
+
+    function setQuickStudentFee(stuId, feeValue) {
+      const st = students.find(s => s.id === stuId || s.code === stuId);
+      if (!st) return;
+      st.doanFee = Number(feeValue);
+      saveToLocalStorage();
+      renderDoanTable();
+      playBeep(650, 'sine', 0.08);
+      showToast(`Đã gán mức phí ${Number(feeValue).toLocaleString('vi-VN')} đ!`, "💰");
+    }
+
+    function updateStudentDoanDate(stuId, dateValue) {
+      const st = students.find(s => s.id === stuId || s.code === stuId);
+      if (!st) return;
+      st.doanDate = dateValue;
+      saveToLocalStorage();
+      showToast("Đã cập nhật ngày vào Đoàn!", "📅");
+    }
+
+    function updateStudentDoanNote(stuId, noteValue) {
+      const st = students.find(s => s.id === stuId || s.code === stuId);
+      if (!st) return;
+      st.doanNote = noteValue.trim();
+      saveToLocalStorage();
+    }
+
+    function openEditIndividualDoanModal(studentId) {
+      const st = students.find(s => s.id === studentId || s.code === studentId);
+      if (!st) return;
+
+      document.getElementById("modal-doan-stu-name").innerText = st.name;
+      document.getElementById("modal-doan-stu-code").innerText = `${st.code} • STT ${students.indexOf(st) + 1}`;
+      document.getElementById("modal-doan-stu-id").value = st.id;
+      document.getElementById("modal-doan-stu-date").value = st.doanDate || defaultDoanDate;
+      document.getElementById("modal-doan-stu-fee").value = (st.doanFee !== undefined && st.doanFee !== null) ? Number(st.doanFee) : doanFeeRate;
+      document.getElementById("modal-doan-stu-note").value = st.doanNote || "";
+
+      const officer = getClassOfficer(st);
+      const officerEl = document.getElementById("modal-doan-stu-officer");
+      if (officerEl) {
+        if (officer) {
+          officerEl.innerText = officer.role;
+          officerEl.className = `text-[10px] font-bold px-2 py-0.5 rounded-full ${officer.badgeClass} inline-block`;
+          officerEl.classList.remove("hidden");
+        } else {
+          officerEl.classList.add("hidden");
+        }
+      }
+
+      if (st.doanFeePaid) {
+        document.getElementById("modal-doan-paid-true").checked = true;
+      } else {
+        document.getElementById("modal-doan-paid-false").checked = true;
+      }
+
+      const modal = document.getElementById("modal-edit-individual-doan");
+      if (modal) {
+        modal.classList.remove("hidden");
+        modal.classList.add("flex");
+      }
+    }
+
+    function closeEditIndividualDoanModal() {
+      const modal = document.getElementById("modal-edit-individual-doan");
+      if (modal) {
+        modal.classList.add("hidden");
+        modal.classList.remove("flex");
+      }
+    }
+
+    function setModalDoanFeePreset(amount) {
+      const feeEl = document.getElementById("modal-doan-stu-fee");
+      if (feeEl) feeEl.value = amount;
+    }
+
+    function saveIndividualDoanMember() {
+      const stuId = document.getElementById("modal-doan-stu-id").value;
+      const st = students.find(s => s.id === stuId || s.code === stuId);
+      if (!st) return;
+
+      const dateVal = document.getElementById("modal-doan-stu-date").value;
+      const feeVal = parseInt(document.getElementById("modal-doan-stu-fee").value, 10);
+      const noteVal = document.getElementById("modal-doan-stu-note").value.trim();
+      const isPaid = document.getElementById("modal-doan-paid-true").checked;
+
+      st.doanDate = dateVal;
+      st.doanFee = isNaN(feeVal) ? doanFeeRate : Math.max(0, feeVal);
+      st.doanFeePaid = isPaid;
+      st.doanNote = noteVal;
+
+      saveToLocalStorage();
+      renderDoanTable();
+      closeEditIndividualDoanModal();
+      showToast("Đã lưu mức đoàn phí riêng!", "💰");
+    }
+
+    function openDoanSettingModal() {
+      const feeEl = document.getElementById("setting-doan-fee");
+      const dateEl = document.getElementById("setting-doan-date");
+      if (feeEl) feeEl.value = doanFeeRate;
+      if (dateEl) dateEl.value = defaultDoanDate;
+      const modal = document.getElementById("modal-doan-setting");
+      if (modal) {
+        modal.classList.remove("hidden");
+        modal.classList.add("flex");
+      }
+    }
+
+    function closeDoanSettingModal() {
+      const modal = document.getElementById("modal-doan-setting");
+      if (modal) {
+        modal.classList.add("hidden");
+        modal.classList.remove("flex");
+      }
+    }
+
+    function saveDoanGeneralSettings() {
+      const fee = parseInt(document.getElementById("setting-doan-fee").value, 10) || 24000;
+      const date = document.getElementById("setting-doan-date").value;
+
+      doanFeeRate = fee;
+      defaultDoanDate = date;
+
+      saveToLocalStorage();
+      renderDoanTable();
+      closeDoanSettingModal();
+      showToast("Đã cập nhật cài đặt đoàn phí chung!", "⚙️");
+    }
+
+    function copyUnpaidDoanList() {
+      const unpaid = students.filter(st => !st.doanFeePaid);
+
+      if (unpaid.length === 0) {
+        showToast("Tuyệt vời! 100% các bạn đã hoàn thành đoàn phí 🌸", "🎉");
+        return;
+      }
+
+      let totalUnpaidAmount = 0;
+      let text = `🎗️ DANH SÁCH CHƯA NỘP ĐOÀN PHÍ - LỚP 11V 🎗️\n`;
+      text += `(Tổng cộng: ${unpaid.length} bạn)\n`;
+      text += `--------------------------------------\n`;
+      unpaid.forEach((st, idx) => {
+        const fee = (st.doanFee !== undefined && st.doanFee !== null) ? Number(st.doanFee) : doanFeeRate;
+        totalUnpaidAmount += fee;
+        const noteStr = st.doanNote ? ` (${st.doanNote})` : '';
+        text += `${idx + 1}. ${st.name} (${st.code}) - ${fee.toLocaleString('vi-VN')} đ${noteStr}\n`;
+      });
+      text += `--------------------------------------\n`;
+      text += `💰 Tổng số tiền còn thiếu: ${totalUnpaidAmount.toLocaleString('vi-VN')} đ\n`;
+      text += `🌸 Nhờ các bạn sớm gửi đoàn phí cho Ban Cán Sự nhé! Cảm ơn cả lớp!`;
+
+      copyTextToClipboard(text);
+      showToast("Đã sao chép danh sách chưa nộp để gửi Zalo!", "📋");
+    }
+
+    let wheelCandidates = [];
+    let currentWheelAngle = 0;
+    let isSpinningWheel = false;
+
+    function populateWheelActivityOptions() {
+      const sel = document.getElementById("wheel-activity-select");
+      if (!sel) return;
+      const currVal = sel.value;
+      sel.innerHTML = `<option value="">✨ Không chọn (Quay gọi tên / Trả bài)</option>` +
+        activities.map(a => `<option value="${a.id}">${a.name}</option>`).join("");
+      sel.value = currVal;
+    }
+
+    function setupWheelCandidates() {
+      const actId = document.getElementById("wheel-activity-select")?.value;
+      const filterMode = document.getElementById("wheel-filter-mode")?.value || 'all';
+
+      if (!actId || filterMode === 'all') {
+        wheelCandidates = [...students];
+      } else {
+        const act = activities.find(a => a.id === actId);
+        const parts = act ? (act.participants || act.assigned || []) : [];
+        if (filterMode === 'unassigned') {
+          wheelCandidates = students.filter(s => !parts.includes(s.id) && !parts.includes(s.code));
+        } else if (filterMode === 'least') {
+          const counts = {};
+          students.forEach(s => counts[s.id] = 0);
+          activities.forEach(a => {
+            const pList = a.participants || a.assigned || [];
+            pList.forEach(id => {
+              const st = students.find(s => s.id === id || s.code === id);
+              if (st) counts[st.id] = (counts[st.id] || 0) + 1;
+            });
+          });
+          let minCount = Infinity;
+          students.forEach(s => { if (counts[s.id] < minCount) minCount = counts[s.id]; });
+          wheelCandidates = students.filter(s => counts[s.id] === minCount);
+        }
+      }
+
+      if (wheelCandidates.length === 0) wheelCandidates = [...students];
+
+      const hintEl = document.getElementById("wheel-candidate-count");
+      if (hintEl) hintEl.innerText = `Đang có ${wheelCandidates.length} bạn trên vòng quay`;
+      drawWheel(currentWheelAngle);
+    }
+
+    function drawWheel(angle) {
+      const canvas = document.getElementById("wheel-canvas");
+      if (!canvas) return;
+      const ctx = canvas.getContext("2d");
+      const numSegments = Math.max(1, wheelCandidates.length);
+      const arc = (2 * Math.PI) / numSegments;
+      const radius = canvas.width / 2;
+
+      ctx.clearRect(0, 0, canvas.width, canvas.height);
+      ctx.save();
+      ctx.translate(radius, radius);
+      ctx.rotate(angle);
+
+      const colors = ['#f43f5e', '#fb7185', '#fda4af', '#ec4899', '#f472b6', '#a855f7', '#38bdf8', '#34d399', '#fbbf24'];
+
+      for (let i = 0; i < numSegments; i++) {
+        const segAngle = i * arc;
+        ctx.beginPath();
+        ctx.fillStyle = colors[i % colors.length];
+        ctx.moveTo(0, 0);
+        ctx.arc(0, 0, radius - 4, segAngle, segAngle + arc);
+        ctx.fill();
+        ctx.strokeStyle = "rgba(255,255,255,0.7)";
+        ctx.lineWidth = 1.5;
+        ctx.stroke();
+
+        ctx.save();
+        ctx.rotate(segAngle + arc / 2);
+        ctx.textAlign = "right";
+        ctx.fillStyle = "#ffffff";
+        ctx.font = "bold 11px 'Be Vietnam Pro', 'Nunito', sans-serif";
+        ctx.shadowColor = "rgba(0,0,0,0.3)";
+        ctx.shadowBlur = 3;
+        const nameText = wheelCandidates[i] ? getTwoWordName(wheelCandidates[i].name) : `Ô ${i+1}`;
+        ctx.fillText(nameText, radius - 20, 4);
+        ctx.restore();
+      }
+
+      ctx.restore();
+    }
+
+    function spinWheel() {
+      if (isSpinningWheel || wheelCandidates.length === 0) return;
+      isSpinningWheel = true;
+      const btn = document.getElementById("btn-spin-wheel");
+      if (btn) btn.disabled = true;
+
+      const spinRounds = 5 + Math.floor(Math.random() * 5);
+      const extraAngle = Math.random() * 2 * Math.PI;
+      const targetAngle = currentWheelAngle + (spinRounds * 2 * Math.PI) + extraAngle;
+
+      const duration = 4000;
+      const startTime = performance.now();
+      const initialAngle = currentWheelAngle;
+      let lastTickAngle = initialAngle;
+
+      function animate(time) {
+        const elapsed = time - startTime;
+        const progress = Math.min(1, elapsed / duration);
+        const ease = 1 - Math.pow(1 - progress, 3);
+        currentWheelAngle = initialAngle + (targetAngle - initialAngle) * ease;
+
+        const arc = (2 * Math.PI) / wheelCandidates.length;
+        if (Math.abs(currentWheelAngle - lastTickAngle) >= arc) {
+          playBeep(520, 'sine', 0.02);
+          lastTickAngle = currentWheelAngle;
+        }
+
+        drawWheel(currentWheelAngle);
+
+        if (progress < 1) {
+          requestAnimationFrame(animate);
+        } else {
+          isSpinningWheel = false;
+          if (btn) btn.disabled = false;
+
+          const normAngle = (currentWheelAngle % (2 * Math.PI) + 2 * Math.PI) % (2 * Math.PI);
+          const pointerAngle = (3 * Math.PI / 2);
+          let relativeAngle = (pointerAngle - normAngle + 2 * Math.PI) % (2 * Math.PI);
+          const arcSeg = (2 * Math.PI) / wheelCandidates.length;
+          const winnerIndex = Math.floor(relativeAngle / arcSeg) % wheelCandidates.length;
+          const winner = wheelCandidates[winnerIndex];
+
+          const actId = document.getElementById("wheel-activity-select")?.value;
+          const act = activities.find(a => a.id === actId);
+
+          const winnerNameEl = document.getElementById("wheel-winner-name");
+          if (winnerNameEl) winnerNameEl.innerText = winner ? winner.name : "Học sinh";
+
+          const winnerTargetEl = document.getElementById("wheel-winner-target");
+          if (winnerTargetEl) winnerTargetEl.innerText = act ? `Hoạt động: ${act.name}` : `Quay ngẫu nhiên / Gọi trả bài 🌸`;
+
+          const actBox = document.getElementById("wheel-winner-actions");
+          if (actBox) {
+            const parts = act ? (act.participants || act.assigned || []) : [];
+            if (act && !parts.includes(winner.id)) {
+              actBox.innerHTML = `
+                <button onclick="confirmAssignToActivity('${act.id}', '${winner.id}')" class="flex-1 liquid-btn-primary py-2.5 rounded-xl text-xs font-black shadow-sm">
+                  ✅ Xác Nhận & Gán Vào HĐ
+                </button>
+                <button onclick="closeWheelWinnerModal()" class="liquid-btn-subtle px-4 py-2.5 rounded-xl text-xs font-bold">
+                  Bỏ Qua
+                </button>
+              `;
+            } else {
+              actBox.innerHTML = `
+                <button onclick="closeWheelWinnerModal()" class="w-full liquid-btn-primary py-2.5 rounded-xl text-xs font-black shadow-sm">
+                  ✅ Đã Xong
+                </button>
+              `;
+            }
+          }
+
+          spinHistory.unshift({
+            studentName: winner ? winner.name : "Học sinh",
+            type: act ? "activity" : "random",
+            targetName: act ? act.name : "Quay ngẫu nhiên / Trả bài",
+            timestamp: new Date().toLocaleTimeString('vi-VN', { hour: '2-digit', minute: '2-digit', second: '2-digit' })
+          });
+          renderSpinHistory();
+          saveToLocalStorage();
+
+          if (typeof confetti === 'function') confetti({ particleCount: 80, spread: 80, origin: { y: 0.6 } });
+          playWinSound();
+
+          const modal = document.getElementById("modal-wheel-winner");
+          if (modal) {
+            modal.classList.remove("hidden");
+            modal.classList.add("flex");
+          }
+        }
+      }
+      requestAnimationFrame(animate);
+    }
+
+    function closeWheelWinnerModal() {
+      const modal = document.getElementById("modal-wheel-winner");
+      if (modal) {
+        modal.classList.add("hidden");
+        modal.classList.remove("flex");
+      }
+    }
+
+    function confirmAssignToActivity(actId, stuId) {
+      const act = activities.find(a => a.id === actId);
+      if (act) {
+        if (!act.participants) act.participants = [];
+        if (!act.participants.includes(stuId)) act.participants.push(stuId);
+        saveToLocalStorage();
+        renderActivities();
+        renderMembers();
+        setupWheelCandidates();
+        showToast("Đã thêm học sinh vào hoạt động!", "✅");
+      }
+      closeWheelWinnerModal();
+    }
+
+    function renderSpinHistory() {
+      const container = document.getElementById("wheel-history-container");
+      if (!container) return;
+      if (spinHistory.length === 0) {
+        container.innerHTML = `<p class="text-rose-400 italic text-[11px]">Chưa có lượt quay nào</p>`;
+        return;
+      }
+      container.innerHTML = spinHistory.slice(0, 20).map((h) => `
+        <div class="p-2 rounded-xl bg-white/70 border border-rose-100 flex items-center justify-between text-xs">
+          <div>
+            <span class="font-black text-rose-950">${h.studentName || h.name || "Bạn"}</span>
+            <span class="text-[10px] text-rose-500 block">${h.targetName || h.target || "Quay"}</span>
+          </div>
+          <span class="text-[10px] font-bold text-rose-400 font-mono">${h.timestamp || h.time || ""}</span>
+        </div>
+      `).join("");
+    }
+
+    function clearSpinHistory() {
+      spinHistory = [];
+      saveToLocalStorage();
+      renderSpinHistory();
+      showToast("Đã xóa lịch sử lượt quay!", "🧹");
+    }
+
+    /* Rút thăm may mắn */
+    function renderTicketViews() {
+      const countEl = document.getElementById("ticket-box-count");
+      if (countEl) countEl.innerText = `${tickets.length} Thăm`;
+
+      const preview = document.getElementById("ticket-list-preview");
+      if (!preview) return;
+      if (tickets.length === 0) {
+        preview.innerHTML = `<div class="col-span-2 text-center text-[11px] text-rose-400 italic py-4">Hộp thăm đang trống! Hãy thêm tên hoặc số bên trên nhé 🌸</div>`;
+        return;
+      }
+      preview.innerHTML = tickets.map((t, idx) => `
+        <div class="ticket-stub p-2 px-3 text-xs flex items-center justify-between shadow-2xs">
+          <div class="truncate pr-1">
+            <span class="text-[9px] font-bold text-rose-400 font-mono">#${String(idx+1).padStart(2,'0')}</span>
+            <span class="font-bold text-rose-950 block truncate">${t}</span>
+          </div>
+          <button onclick="removeSingleTicket(${idx})" class="text-rose-400 hover:text-rose-700 font-bold text-xs p-1">✕</button>
+        </div>
+      `).join("");
+    }
+
+    function addTicketsFromMultiline(replace = false) {
+      const ta = document.getElementById("ticket-multiline-input");
+      if (!ta) return;
+      const lines = ta.value.split("\n").map(l => l.trim()).filter(l => l.length > 0);
+      if (lines.length === 0) {
+        showToast("Vui lòng nhập ít nhất 1 dòng nội dung!", "⚠️");
+        return;
+      }
+      if (replace) tickets = [];
+      tickets.push(...lines);
+      ta.value = "";
+      saveToLocalStorage();
+      renderTicketViews();
+      showToast(`Đã thêm ${lines.length} lá thăm vào hộp!`, "🎟️");
+    }
+
+    function apply11VStudentsToTickets() {
+      tickets = students.map(s => s.name);
+      saveToLocalStorage();
+      renderTicketViews();
+      showToast("Đã nạp đủ 34 bạn 11V vào hộp thăm!", "🌸");
+    }
+
+    function promptGenerateNumberTickets() {
+      const count = 34;
+      tickets = Array.from({ length: count }, (_, i) => `Số ${i + 1}`);
+      saveToLocalStorage();
+      renderTicketViews();
+      showToast(`Đã tạo dãy thăm từ Số 1 đến Số ${count}!`, "🔢");
+    }
+
+    function removeSingleTicket(index) {
+      tickets.splice(index, 1);
+      saveToLocalStorage();
+      renderTicketViews();
+    }
+
+    function clearAllTickets() {
+      tickets = [];
+      saveToLocalStorage();
+      renderTicketViews();
+      showToast("Đã xóa sạch hộp thăm!", "🧹");
+    }
+
+    function shuffleTicketBox() {
+      if (tickets.length <= 1) return;
+      for (let i = tickets.length - 1; i > 0; i--) {
+        const j = Math.floor(Math.random() * (i + 1));
+        [tickets[i], tickets[j]] = [tickets[j], tickets[i]];
+      }
+      saveToLocalStorage();
+      renderTicketViews();
+      playBeep(700, 'sine', 0.08);
+      showToast("Đã xáo trộn các lá thăm trong hộp!", "🔀");
+    }
+
+    function handleDrawClick(drawCount = 1) {
+      if (tickets.length === 0) {
+        showToast("Hộp thăm đang trống! Hãy thêm thăm vào trước nhé", "⚠️");
+        return;
+      }
+      const box = document.getElementById("ticket-box-3d");
+      if (box) box.classList.add("animate-box-shake");
+      playBeep(450, 'triangle', 0.15);
+
+      const actualDraw = Math.min(drawCount, tickets.length);
+      const removeAfter = document.getElementById("ticket-remove-after-draw")?.checked;
+
+      setTimeout(() => {
+        if (box) box.classList.remove("animate-box-shake");
+        const drawn = [];
+        for (let i = 0; i < actualDraw; i++) {
+          const randIdx = Math.floor(Math.random() * tickets.length);
+          drawn.push(tickets[randIdx]);
+          if (removeAfter) tickets.splice(randIdx, 1);
+        }
+
+        const resBox = document.getElementById("ticket-result-container");
+        if (resBox) {
+          resBox.innerHTML = drawn.map((d, i) => `
+            <div class="ticket-stub p-3.5 bg-gradient-to-r from-rose-50 to-white text-center shadow-xs">
+              <span class="text-[10px] font-black text-rose-500 uppercase tracking-widest block">LÁ THĂM SỐ ${i + 1}</span>
+              <span class="text-base font-black text-rose-950 mt-1 block">${d}</span>
+            </div>
+          `).join("");
+        }
+
+        saveToLocalStorage();
+        renderTicketViews();
+
+        if (typeof confetti === 'function') confetti({ particleCount: 75, spread: 75, origin: { y: 0.6 } });
+        playWinSound();
+
+        const modal = document.getElementById("modal-ticket-result");
+        if (modal) {
+          modal.classList.remove("hidden");
+          modal.classList.add("flex");
+        }
+      }, 600);
+    }
+
+    function closeTicketResultModal() {
+      const modal = document.getElementById("modal-ticket-result");
+      if (modal) {
+        modal.classList.add("hidden");
+        modal.classList.remove("flex");
+      }
+    }
+
+    let activityFilterMode = 'all';
+    let currentManualActivityId = null;
+    let manualSelectedStudentIds = new Set();
+
+    function setActivityFilter(filter) {
+      activityFilterMode = filter;
+      ['all', 'needed', 'full'].forEach(f => {
+        const btn = document.getElementById(`filter-act-${f}`);
+        if (btn) {
+          if (f === filter) {
+            btn.className = "px-3 py-1.5 rounded-xl text-xs font-black bg-rose-500 text-white shadow-xs transition-all";
+          } else {
+            btn.className = "px-3 py-1.5 rounded-xl text-xs font-bold bg-white/80 text-rose-700 border border-rose-200 hover:bg-rose-100 transition-all";
+          }
+        }
+      });
+      renderActivities();
+    }
+
+    function getActivityCountsMap() {
+      const counts = {};
+      students.forEach(s => counts[s.id] = 0);
+      activities.forEach(a => {
+        const parts = a.participants || a.assigned || [];
+        parts.forEach(id => {
+          const st = students.find(s => s.id === id || s.code === id);
+          if (st) counts[st.id] = (counts[st.id] || 0) + 1;
+        });
+      });
+      return counts;
+    }
+
+    function updateActivityDashboardStats() {
+      const countsMap = getActivityCountsMap();
+      const participatingCount = students.filter(s => (countsMap[s.id] || 0) > 0).length;
+      const zeroCount = students.length - participatingCount;
+      const percentParticipated = students.length > 0 ? Math.round((participatingCount / students.length) * 100) : 0;
+
+      let totalSlots = 0;
+      let totalFilled = 0;
+      activities.forEach(a => {
+        totalSlots += (a.target || 0);
+        const parts = a.participants || a.assigned || [];
+        totalFilled += parts.length;
+      });
+
+      const pEl = document.getElementById("act-stat-percent");
+      if (pEl) pEl.innerText = `${percentParticipated}% (${participatingCount}/${students.length} bạn)`;
+
+      const barEl = document.getElementById("act-stat-percent-bar");
+      if (barEl) barEl.style.width = `${percentParticipated}%`;
+
+      const zEl = document.getElementById("act-stat-zero");
+      if (zEl) zEl.innerText = `${zeroCount} bạn`;
+
+      const fEl = document.getElementById("act-stat-slots");
+      if (fEl) fEl.innerText = `${totalFilled} / ${totalSlots} lượt`;
+    }
+
+    function renderActivities() {
+      updateActivityDashboardStats();
+      const container = document.getElementById("activities-container");
+      if (!container) return;
+      if (activities.length === 0) {
+        container.innerHTML = `<div class="col-span-2 text-center text-xs text-rose-400 italic py-8">Chưa có hoạt động nào. Hãy bấm nút "+ Thêm Hoạt Động Mới" nhé 🌸</div>`;
+        return;
+      }
+
+      const countsMap = getActivityCountsMap();
+
+      let filteredActivities = activities;
+      if (activityFilterMode === 'needed') {
+        filteredActivities = activities.filter(a => {
+          const parts = a.participants || a.assigned || [];
+          return parts.length < (a.target || 1);
+        });
+      } else if (activityFilterMode === 'full') {
+        filteredActivities = activities.filter(a => {
+          const parts = a.participants || a.assigned || [];
+          return parts.length >= (a.target || 1);
+        });
+      }
+
+      if (filteredActivities.length === 0) {
+        container.innerHTML = `<div class="col-span-2 text-center text-xs text-rose-400 italic py-6">Không có hoạt động nào thuộc nhóm lọc này.</div>`;
+        return;
+      }
+
+      container.innerHTML = filteredActivities.map(act => {
+        const parts = act.participants || act.assigned || [];
+        const assignedList = parts.map(id => students.find(s => s.id === id || s.code === id)).filter(Boolean);
+        const percent = Math.min(100, Math.round((assignedList.length / (act.target || 1)) * 100));
+        const isFull = assignedList.length >= (act.target || 1);
+
+        const availableStudents = students
+          .filter(s => !parts.includes(s.id) && !parts.includes(s.code))
+          .sort((a, b) => (countsMap[a.id] || 0) - (countsMap[b.id] || 0));
+
+        return `
+          <div class="liquid-card rounded-3xl p-4.5 space-y-3.5 shadow-xs border ${isFull ? 'border-emerald-200/90' : 'border-rose-200/90'}">
+            <!-- Header của thẻ hoạt động -->
+            <div class="flex items-start justify-between gap-2">
+              <div>
+                <div class="flex items-center gap-1.5 flex-wrap">
+                  <h3 class="text-sm font-black text-rose-950">${act.name}</h3>
+                  <span class="text-[10px] font-black px-2 py-0.5 rounded-full ${isFull ? 'bg-emerald-100 text-emerald-800 border border-emerald-300' : 'bg-amber-100 text-amber-800 border border-amber-300'}">
+                    ${isFull ? '✓ Đủ người' : '⏳ Cần thêm'}
+                  </span>
+                </div>
+                <span class="text-[11px] font-bold text-rose-500 block mt-0.5">📅 ${act.startDate || act.date || 'Chưa định'} ➔ ${act.endDate || act.date || 'Chưa định'}</span>
+              </div>
+              <div class="flex items-center gap-1">
+                <button onclick="copyActivityParticipants('${act.id}')" title="Sao chép danh sách tham gia gửi Zalo" class="p-1.5 rounded-xl hover:bg-rose-100 text-rose-700 text-xs">📋</button>
+                <button onclick="editActivity('${act.id}')" title="Chỉnh sửa hoạt động" class="p-1.5 rounded-xl hover:bg-rose-100 text-rose-600 text-xs">✏️</button>
+                <button onclick="deleteActivity('${act.id}')" title="Xóa hoạt động" class="p-1.5 rounded-xl hover:bg-rose-100 text-rose-400 hover:text-rose-700 text-xs">🗑️</button>
+              </div>
+            </div>
+
+            <!-- Thanh tiến độ phần trăm tham gia -->
+            <div class="space-y-1">
+              <div class="flex justify-between text-[11px] font-bold">
+                <span class="text-rose-700">Tiến độ tham gia:</span>
+                <span class="text-rose-950 font-black">${assignedList.length} / ${act.target} bạn (${percent}%)</span>
+              </div>
+              <div class="w-full h-2.5 rounded-full bg-rose-100/90 overflow-hidden p-0.5">
+                <div class="h-full bg-gradient-to-r ${isFull ? 'from-emerald-400 to-teal-500' : 'from-rose-500 to-pink-500'} rounded-full transition-all duration-500" style="width: ${percent}%"></div>
+              </div>
+            </div>
+
+            ${(act.description || act.desc) ? `<p class="text-xs text-rose-700/80 bg-rose-50/70 p-2 rounded-xl border border-rose-100">${act.description || act.desc}</p>` : ''}
+
+            <!-- Khu vực thêm thành viên thủ công -->
+            <div class="p-2.5 rounded-2xl bg-white/70 border border-rose-100/80 space-y-2">
+              <div class="flex items-center justify-between text-[11px] font-black text-rose-900">
+                <span>➕ Thêm Bạn Vào Hoạt Động:</span>
+                <button onclick="openManualAddParticipantsModal('${act.id}')" class="text-rose-600 hover:text-rose-900 underline text-[10px] font-bold flex items-center gap-1">
+                  <span>👥</span> Chọn nhiều bạn
+                </button>
+              </div>
+              <div class="flex items-center gap-1.5">
+                <select id="act-quick-select-${act.id}" class="flex-1 px-2.5 py-1.5 rounded-xl bg-white border border-rose-200 text-xs font-bold text-rose-950 focus:outline-none">
+                  <option value="">-- Chọn bạn để thêm --</option>
+                  ${availableStudents.map(st => {
+                    const c = countsMap[st.id] || 0;
+                    return `<option value="${st.id}">${st.name} (${c === 0 ? '⭐ 0 HĐ' : `${c} HĐ`})</option>`;
+                  }).join("")}
+                </select>
+                <button onclick="quickAddStudentToActivity('${act.id}')" class="liquid-btn-primary px-3 py-1.5 rounded-xl text-xs font-black flex items-center gap-1 shadow-xs whitespace-nowrap">
+                  <span>+</span> Thêm
+                </button>
+              </div>
+            </div>
+
+            <!-- Danh sách thành viên tham gia -->
+            <div class="space-y-1.5 pt-1 border-t border-rose-100">
+              <span class="text-[11px] font-black text-rose-900 block">Danh sách bạn tham gia (${assignedList.length}):</span>
+              <div class="flex flex-wrap gap-1.5 max-h-24 overflow-y-auto">
+                ${assignedList.length > 0 ? assignedList.map(st => {
+                  const officer = getClassOfficer(st);
+                  return `
+                    <span class="inline-flex items-center gap-1 px-2 py-0.5 rounded-full bg-white text-rose-950 text-[11px] font-bold border border-rose-200 shadow-2xs">
+                      <span>${getTwoWordName(st.name)}</span>
+                      ${officer ? `<span class="text-[8px] font-black px-1 rounded-full ${officer.glowClass}">${officer.shortRole}</span>` : ''}
+                      <button onclick="removeStudentFromActivity('${act.id}', '${st.id}')" class="text-rose-400 hover:text-rose-700 ml-0.5">✕</button>
+                    </span>
+                  `;
+                }).join("") : `<span class="text-[11px] text-rose-400 italic">Chưa có bạn nào tham gia</span>`}
+              </div>
+            </div>
+          </div>
+        `;
+      }).join("");
+    }
+
+    function quickAddStudentToActivity(actId) {
+      const sel = document.getElementById(`act-quick-select-${actId}`);
+      if (!sel || !sel.value) {
+        showToast("Vui lòng chọn một học sinh!", "⚠️");
+        return;
+      }
+      const stuId = sel.value;
+      const act = activities.find(a => a.id === actId);
+      if (!act) return;
+
+      if (!act.participants) act.participants = [];
+      if (act.participants.includes(stuId)) {
+        showToast("Bạn này đã có trong danh sách!", "⚠️");
+        return;
+      }
+      act.participants.push(stuId);
+      saveToLocalStorage();
+      renderActivities();
+      renderMembers();
+      setupWheelCandidates();
+      playBeep(680, 'sine', 0.08);
+      const st = students.find(s => s.id === stuId || s.code === stuId);
+      showToast(`Đã thêm ${st ? st.name : 'bạn'} vào hoạt động!`, "✅");
+    }
+
+    function copyActivityParticipants(actId) {
+      const act = activities.find(a => a.id === actId);
+      if (!act) return;
+      const parts = act.participants || act.assigned || [];
+      const assignedList = parts.map(id => students.find(s => s.id === id || s.code === id)).filter(Boolean);
+
+      let text = `📢 DANH SÁCH THAM GIA: ${act.name.toUpperCase()}\n`;
+      text += `📅 Thời gian: ${act.startDate || act.date || ''} ➔ ${act.endDate || act.date || ''}\n`;
+      text += `🎯 Tiến độ: ${assignedList.length}/${act.target || 0} bạn (${Math.round((assignedList.length / (act.target || 1)) * 100)}%)\n`;
+      text += `--------------------------------------\n`;
+      if (assignedList.length === 0) {
+        text += `(Chưa có thành viên nào đăng ký)\n`;
+      } else {
+        assignedList.forEach((st, idx) => {
+          const officer = getClassOfficer(st);
+          const roleStr = officer ? ` - ${officer.role}` : '';
+          text += `${idx + 1}. ${st.name} (${st.code})${roleStr}\n`;
+        });
+      }
+      text += `--------------------------------------\n`;
+      text += `🌸 Chi đoàn Lớp 11V`;
+      copyTextToClipboard(text);
+      showToast("Đã sao chép danh sách tham gia gửi Zalo!", "📋");
+    }
+
+    function openManualAddParticipantsModal(actId) {
+      currentManualActivityId = actId;
+      const act = activities.find(a => a.id === actId);
+      if (!act) return;
+
+      const titleEl = document.getElementById("manual-participants-title");
+      if (titleEl) titleEl.innerText = `Chọn Thành Viên: ${act.name}`;
+
+      const parts = act.participants || act.assigned || [];
+      manualSelectedStudentIds = new Set(parts);
+
+      const searchInput = document.getElementById("manual-participants-search");
+      if (searchInput) searchInput.value = "";
+
+      renderManualStudentSelectionList();
+
+      const modal = document.getElementById("modal-manual-participants");
+      if (modal) {
+        modal.classList.remove("hidden");
+        modal.classList.add("flex");
+      }
+    }
+
+    function closeManualAddParticipantsModal() {
+      const modal = document.getElementById("modal-manual-participants");
+      if (modal) {
+        modal.classList.add("hidden");
+        modal.classList.remove("flex");
+      }
+      currentManualActivityId = null;
+      manualSelectedStudentIds.clear();
+    }
+
+    function renderManualStudentSelectionList() {
+      const container = document.getElementById("manual-participants-list");
+      if (!container) return;
+
+      const query = (document.getElementById("manual-participants-search")?.value || "").toLowerCase().trim();
+      const countsMap = getActivityCountsMap();
+
+      const sortedStudents = [...students].sort((a, b) => (countsMap[a.id] || 0) - (countsMap[b.id] || 0));
+      const filtered = sortedStudents.filter(s => s.name.toLowerCase().includes(query) || s.code.toLowerCase().includes(query));
+
+      if (filtered.length === 0) {
+        container.innerHTML = `<div class="text-center text-rose-400 italic py-4 text-xs">Không tìm thấy học sinh phù hợp</div>`;
+        return;
+      }
+
+      container.innerHTML = filtered.map(st => {
+        const isChecked = manualSelectedStudentIds.has(st.id);
+        const officer = getClassOfficer(st);
+        const count = countsMap[st.id] || 0;
+
+        return `
+          <label class="flex items-center justify-between p-2 rounded-xl border transition-all cursor-pointer ${isChecked ? 'bg-rose-100/80 border-rose-400 font-black' : 'bg-white/80 border-rose-200/70 hover:bg-rose-50/60 font-medium'}">
+            <div class="flex items-center gap-2">
+              <input type="checkbox" ${isChecked ? 'checked' : ''} onchange="toggleManualStudentCheck('${st.id}')" class="w-4 h-4 rounded text-rose-600 accent-rose-500 focus:ring-0">
+              <div>
+                <div class="text-xs text-rose-950 flex items-center gap-1">
+                  <span>${st.name}</span>
+                  ${officer ? `<span class="text-[9px] px-1.5 py-0.2 rounded-full ${officer.glowClass}">${officer.shortRole}</span>` : ''}
+                </div>
+                <span class="text-[10px] text-rose-500">${st.code}</span>
+              </div>
+            </div>
+            <span class="text-[10px] px-2 py-0.5 rounded-full font-bold ${count === 0 ? 'bg-amber-100 text-amber-900 border border-amber-300' : 'bg-rose-50 text-rose-700'}">
+              ${count === 0 ? '⭐ 0 HĐ' : `${count} HĐ`}
+            </span>
+          </label>
+        `;
+      }).join("");
+
+      const countBadge = document.getElementById("manual-participants-selected-count");
+      if (countBadge) countBadge.innerText = `Đã chọn: ${manualSelectedStudentIds.size} bạn`;
+    }
+
+    function toggleManualStudentCheck(stuId) {
+      if (manualSelectedStudentIds.has(stuId)) {
+        manualSelectedStudentIds.delete(stuId);
+      } else {
+        manualSelectedStudentIds.add(stuId);
+      }
+      renderManualStudentSelectionList();
+    }
+
+    function toggleSelectAllManual(select) {
+      if (select) {
+        students.forEach(s => manualSelectedStudentIds.add(s.id));
+      } else {
+        manualSelectedStudentIds.clear();
+      }
+      renderManualStudentSelectionList();
+    }
+
+    function selectAllZeroActivityStudents() {
+      const countsMap = getActivityCountsMap();
+      students.forEach(s => {
+        if ((countsMap[s.id] || 0) === 0) {
+          manualSelectedStudentIds.add(s.id);
+        }
+      });
+      renderManualStudentSelectionList();
+      showToast("Đã chọn các bạn chưa tham gia HĐ nào!", "⚡");
+    }
+
+    function saveManualAddParticipants() {
+      if (!currentManualActivityId) return;
+      const act = activities.find(a => a.id === currentManualActivityId);
+      if (!act) return;
+
+      act.participants = Array.from(manualSelectedStudentIds);
+      saveToLocalStorage();
+      renderActivities();
+      renderMembers();
+      setupWheelCandidates();
+      closeManualAddParticipantsModal();
+      playWinSound();
+      showToast("Đã cập nhật danh sách tham gia hoạt động!", "✅");
+    }
+
+    function openUnassignedStudentsModal() {
+      const countsMap = getActivityCountsMap();
+      const unassigned = students.filter(s => (countsMap[s.id] || 0) === 0);
+
+      const countEl = document.getElementById("unassigned-students-count");
+      if (countEl) countEl.innerText = `${unassigned.length} bạn`;
+
+      const container = document.getElementById("unassigned-students-list");
+      if (container) {
+        if (unassigned.length === 0) {
+          container.innerHTML = `<div class="p-4 text-center text-xs text-emerald-700 font-bold bg-emerald-50 rounded-2xl">🎉 100% các bạn trong lớp đã tham gia ít nhất 1 hoạt động!</div>`;
+        } else {
+          container.innerHTML = unassigned.map((st, idx) => {
+            const officer = getClassOfficer(st);
+            return `
+              <div class="flex items-center justify-between p-2.5 rounded-xl bg-white border border-rose-200">
+                <div class="flex items-center gap-2">
+                  <span class="w-5 h-5 rounded-full bg-rose-100 text-rose-800 text-[10px] font-black flex items-center justify-center">${idx + 1}</span>
+                  <div>
+                    <span class="text-xs font-black text-rose-950">${st.name}</span>
+                    <span class="text-[10px] text-rose-400 block">${st.code}</span>
+                  </div>
+                </div>
+                ${officer ? `<span class="text-[9px] font-bold px-2 py-0.5 rounded-full ${officer.glowClass}">${officer.shortRole}</span>` : `<span class="text-[10px] font-bold text-amber-700 bg-amber-100 px-2 py-0.5 rounded-full">0 hoạt động</span>`}
+              </div>
+            `;
+          }).join("");
+        }
+      }
+
+      const modal = document.getElementById("modal-unassigned-students");
+      if (modal) {
+        modal.classList.remove("hidden");
+        modal.classList.add("flex");
+      }
+    }
+
+    function closeUnassignedStudentsModal() {
+      const modal = document.getElementById("modal-unassigned-students");
+      if (modal) {
+        modal.classList.add("hidden");
+        modal.classList.remove("flex");
+      }
+    }
+
+    function copyUnassignedStudentsList() {
+      const countsMap = getActivityCountsMap();
+      const unassigned = students.filter(s => (countsMap[s.id] || 0) === 0);
+
+      if (unassigned.length === 0) {
+        showToast("100% các bạn đã tham gia hoạt động rồi!", "🎉");
+        return;
+      }
+
+      let text = `🌸 DANH SÁCH HỌC SINH CHƯA THAM GIA HOẠT ĐỘNG NÀO - LỚP 11V 🌸\n`;
+      text += `(Tổng cộng: ${unassigned.length} bạn)\n`;
+      text += `--------------------------------------\n`;
+      unassigned.forEach((st, idx) => {
+        const officer = getClassOfficer(st);
+        const roleStr = officer ? ` - ${officer.role}` : '';
+        text += `${idx + 1}. ${st.name} (${st.code})${roleStr}\n`;
+      });
+      text += `--------------------------------------\n`;
+      text += `⚡ Ban Cán Sự ưu tiên phân công các bạn trên vào hoạt động sắp tới nhé!`;
+
+      copyTextToClipboard(text);
+      showToast("Đã sao chép danh sách bạn chưa tham gia HĐ!", "📋");
+    }
+
+    function openNewActivityModal() {
+      document.getElementById("modal-activity-title").innerHTML = "<span>📢</span> Thêm Hoạt Động Mới";
+      document.getElementById("modal-activity-id").value = "";
+      document.getElementById("modal-activity-name").value = "";
+      document.getElementById("modal-activity-start-date").value = new Date().toISOString().split("T")[0];
+      document.getElementById("modal-activity-end-date").value = new Date().toISOString().split("T")[0];
+      document.getElementById("modal-activity-target").value = 5;
+      document.getElementById("modal-activity-desc").value = "";
+
+      const modal = document.getElementById("modal-activity");
+      if (modal) {
+        modal.classList.remove("hidden");
+        modal.classList.add("flex");
+      }
+    }
+
+    function editActivity(actId) {
+      const act = activities.find(a => a.id === actId);
+      if (!act) return;
+      document.getElementById("modal-activity-title").innerHTML = "<span>✏️</span> Chỉnh Sửa Hoạt Động";
+      document.getElementById("modal-activity-id").value = act.id;
+      document.getElementById("modal-activity-name").value = act.name;
+      document.getElementById("modal-activity-start-date").value = act.startDate || act.date || "";
+      document.getElementById("modal-activity-end-date").value = act.endDate || act.date || "";
+      document.getElementById("modal-activity-target").value = act.target || 5;
+      document.getElementById("modal-activity-desc").value = act.description || act.desc || "";
+
+      const modal = document.getElementById("modal-activity");
+      if (modal) {
+        modal.classList.remove("hidden");
+        modal.classList.add("flex");
+      }
+    }
+
+    function closeActivityModal() {
+      const modal = document.getElementById("modal-activity");
+      if (modal) {
+        modal.classList.add("hidden");
+        modal.classList.remove("flex");
+      }
+    }
+
+    function handleSaveActivity() {
+      const id = document.getElementById("modal-activity-id").value;
+      const name = document.getElementById("modal-activity-name").value.trim();
+      const startDate = document.getElementById("modal-activity-start-date").value;
+      const endDate = document.getElementById("modal-activity-end-date").value;
+      const target = parseInt(document.getElementById("modal-activity-target").value, 10) || 5;
+      const desc = document.getElementById("modal-activity-desc").value.trim();
+
+      if (!name) {
+        showToast("Vui lòng nhập tên hoạt động!", "⚠️");
+        return;
+      }
+
+      if (id) {
+        const act = activities.find(a => a.id === id);
+        if (act) {
+          act.name = name;
+          act.startDate = startDate;
+          act.endDate = endDate;
+          act.date = startDate;
+          act.target = target;
+          act.description = desc;
+          act.desc = desc;
+        }
+      } else {
+        activities.push({
+          id: `act-${Date.now()}`,
+          name,
+          date: startDate,
+          startDate,
+          endDate,
+          target,
+          description: desc,
+          desc,
+          participants: []
+        });
+      }
+
+      saveToLocalStorage();
+      renderActivities();
+      populateWheelActivityOptions();
+      closeActivityModal();
+      showToast("Đã lưu hoạt động thành công!", "📢");
+    }
+
+    function deleteActivity(actId) {
+      activities = activities.filter(a => a.id !== actId);
+      saveToLocalStorage();
+      renderActivities();
+      renderMembers();
+      populateWheelActivityOptions();
+      setupWheelCandidates();
+      showToast("Đã xóa hoạt động!", "🗑️");
+    }
+
+    function removeStudentFromActivity(actId, stuId) {
+      const act = activities.find(a => a.id === actId);
+      if (act) {
+        if (act.participants) act.participants = act.participants.filter(id => id !== stuId);
+        if (act.assigned) act.assigned = act.assigned.filter(id => id !== stuId);
+        saveToLocalStorage();
+        renderActivities();
+        renderMembers();
+        setupWheelCandidates();
+        showToast("Đã rút tên học sinh khỏi hoạt động!", "✨");
+      }
+    }
+
+    function renderMembers() {
+      const tbody = document.getElementById("members-table-body");
+      if (!tbody) return;
+      const query = (document.getElementById("member-search-input")?.value || "").toLowerCase().trim();
+
+      const filtered = students.filter(st => st.name.toLowerCase().includes(query) || (st.code && st.code.toLowerCase().includes(query)));
+
+      tbody.innerHTML = filtered.map((st, idx) => {
+        const joinedActs = activities.filter(a => {
+          const parts = a.participants || a.assigned || [];
+          return parts.includes(st.id) || parts.includes(st.code);
+        });
+        const officer = getClassOfficer(st);
+
+        return `
+          <tr class="hover:bg-rose-50/50 transition-colors">
+            <td class="py-2.5 px-3 font-bold text-rose-400">${idx + 1}</td>
+            <td class="py-2.5 px-3">
+              <div class="font-black text-rose-950 flex items-center gap-1.5 flex-wrap">
+                <span>${st.name}</span>
+                ${officer ? `<span class="text-[9px] font-bold px-1.5 py-0.5 rounded-full ${officer.glowClass}">${officer.shortRole}</span>` : ''}
+              </div>
+            </td>
+            <td class="py-2.5 px-3 text-center">
+              <span class="px-2 py-0.5 rounded-full text-[11px] font-black ${joinedActs.length > 0 ? 'bg-rose-100 text-rose-800' : 'bg-gray-100 text-gray-500'}">
+                ${joinedActs.length} HĐ
+              </span>
+            </td>
+            <td class="py-2.5 px-3">
+              <div class="flex flex-wrap gap-1 max-w-xs">
+                ${joinedActs.length > 0 ? joinedActs.map(a => `
+                  <span class="text-[10px] font-bold px-1.5 py-0.5 rounded-md bg-white border border-rose-200 text-rose-800">${a.name}</span>
+                `).join("") : `<span class="text-rose-300 text-[11px] italic">Chưa tham gia</span>`}
+              </div>
+            </td>
+            <td class="py-2.5 px-3 text-right">
+              <button onclick="openEditStudentModal('${st.id}')" class="p-1 rounded-lg hover:bg-rose-100 text-rose-600 text-xs font-bold">
+                ✏️ Sửa
+              </button>
+            </td>
+          </tr>
+        `;
+      }).join("");
+    }
+
+    function openEditStudentModal(stuId) {
+      const stu = students.find(s => s.id === stuId || s.code === stuId);
+      if (!stu) return;
+      document.getElementById("edit-student-id").value = stu.id;
+      document.getElementById("edit-student-name").value = stu.name;
+      document.getElementById("edit-student-code").value = stu.code;
+      const modal = document.getElementById("modal-edit-student");
+      if (modal) {
+        modal.classList.remove("hidden");
+        modal.classList.add("flex");
+      }
+    }
+
+    function closeEditStudentModal() {
+      const modal = document.getElementById("modal-edit-student");
+      if (modal) {
+        modal.classList.add("hidden");
+        modal.classList.remove("flex");
+      }
+    }
+
+    function handleSaveStudent() {
+      const id = document.getElementById("edit-student-id").value;
+      const name = document.getElementById("edit-student-name").value.trim();
+      const code = document.getElementById("edit-student-code").value.trim();
+
+      if (!name) {
+        showToast("Họ tên không được để trống!", "⚠️");
+        return;
+      }
+      const stu = students.find(s => s.id === id || s.code === id);
+      if (stu) {
+        stu.name = name;
+        stu.code = code || stu.code;
+        saveToLocalStorage();
+        renderMembers();
+        renderSeatingGrid();
+        renderDoanTable();
+        setupWheelCandidates();
+        closeEditStudentModal();
+        showToast("Đã cập nhật thông tin học sinh!", "✨");
+      }
+    }
+
+    function exportMembersToExcel() {
+      try {
+        const todayStr = new Date().toISOString().slice(0, 10);
+        const data = students.map((st, idx) => {
+          const officer = getClassOfficer(st);
+          const joinedActs = activities.filter(a => {
+            const parts = a.participants || a.assigned || [];
+            return parts.includes(st.id) || parts.includes(st.code);
+          });
+          const actNames = joinedActs.map(a => a.name).join(", ");
+
+          return {
+            "STT": idx + 1,
+            "Họ Và Tên": st.name,
+            "Chức Vụ Ban Cán Sự": officer ? officer.role : "Thành viên",
+            "Số Hoạt Động Tham Gia": joinedActs.length,
+            "Chi Tiết Hoạt Động": actNames || "Chưa tham gia"
+          };
+        });
+
+        if (typeof XLSX !== "undefined") {
+          const ws = XLSX.utils.json_to_sheet(data);
+          ws['!cols'] = [
+            { wch: 6 },
+            { wch: 28 },
+            { wch: 24 },
+            { wch: 24 },
+            { wch: 50 }
+          ];
+          const wb = XLSX.utils.book_new();
+          XLSX.utils.book_append_sheet(wb, ws, "ThanhVien_11V");
+          XLSX.writeFile(wb, `DanhSach_ThanhVien_11V_${todayStr}.xlsx`);
+        } else {
+          downloadCSVWithBOM(data, `DanhSach_ThanhVien_11V_${todayStr}.csv`);
+        }
+        playWinSound();
+        showToast("Đã xuất file Excel danh sách thành viên thành công!", "📊");
+      } catch (err) {
+        showToast("Có lỗi khi xuất file Excel, vui lòng thử lại!", "⚠️");
+      }
+    }
+
+    function exportDoanToExcel() {
+      try {
+        const todayStr = new Date().toISOString().slice(0, 10);
+        const data = students.map((st, idx) => {
+          const officer = getClassOfficer(st);
+          const fee = (st.doanFee !== undefined && st.doanFee !== null && st.doanFee !== "") ? Number(st.doanFee) : doanFeeRate;
+
+          return {
+            "STT": idx + 1,
+            "Họ Và Tên": st.name,
+            "Chức Vụ": officer ? officer.role : "Đoàn viên",
+            "Ngày Vào Đoàn": st.doanDate || defaultDoanDate,
+            "Mức Phí (VNĐ)": fee,
+            "Trạng Thái Nộp": st.doanFeePaid ? "Đã nộp" : "Chưa nộp",
+            "Ghi Chú": st.doanNote || ""
+          };
+        });
+
+        if (typeof XLSX !== "undefined") {
+          const ws = XLSX.utils.json_to_sheet(data);
+          ws['!cols'] = [
+            { wch: 6 },
+            { wch: 28 },
+            { wch: 22 },
+            { wch: 16 },
+            { wch: 16 },
+            { wch: 16 },
+            { wch: 30 }
+          ];
+          const wb = XLSX.utils.book_new();
+          XLSX.utils.book_append_sheet(wb, ws, "DoanPhi_11V");
+          XLSX.writeFile(wb, `QuanLy_DoanPhi_11V_${todayStr}.xlsx`);
+        } else {
+          downloadCSVWithBOM(data, `QuanLy_DoanPhi_11V_${todayStr}.csv`);
+        }
+        playWinSound();
+        showToast("Đã xuất file Excel quản lý đoàn phí thành công!", "📊");
+      } catch (err) {
+        showToast("Có lỗi khi xuất file Excel, vui lòng thử lại!", "⚠️");
+      }
+    }
+
+    function downloadCSVWithBOM(data, filename) {
+      if (!data || data.length === 0) return;
+      const headers = Object.keys(data[0]);
+      let csvContent = "\uFEFF" + headers.join(",") + "\n";
+      data.forEach(row => {
+        const line = headers.map(h => {
+          let val = row[h] === null || row[h] === undefined ? "" : String(row[h]);
+          if (val.includes(",") || val.includes('"') || val.includes("\n")) {
+            val = `"${val.replace(/"/g, '""')}"`;
+          }
+          return val;
+        }).join(",");
+        csvContent += line + "\n";
+      });
+      const blob = new Blob([csvContent], { type: "text/csv;charset=utf-8;" });
+      const url = URL.createObjectURL(blob);
+      const a = document.createElement("a");
+      a.href = url;
+      a.download = filename;
+      a.click();
+      URL.revokeObjectURL(url);
+    }
+
+    function exportSeatsArray() {
+      const seatsList = [];
+      for (let t = 1; t <= 4; t++) {
+        for (let r = 1; r <= 6; r++) {
+          ['Trái', 'Phải'].forEach(pos => {
+            const key = `seat-${t}-${r}-${pos}`;
+            seatsList.push({
+              id: key,
+              to: t,
+              ban: r,
+              pos: pos,
+              studentId: seatingGrid[key] || null
+            });
+          });
+        }
+      }
+      return seatsList;
+    }
+
+    function generateSyncExportCode() {
+      const exportTa = document.getElementById("sync-export-textarea");
+      if (!exportTa) return;
+      try {
+        const payload = {
+          students: students.map(s => ({
+            id: s.id,
+            name: s.name,
+            code: s.code,
+            doanDate: s.doanDate || defaultDoanDate,
+            doanFeePaid: !!s.doanFeePaid,
+            doanFee: (s.doanFee !== undefined && s.doanFee !== null) ? Number(s.doanFee) : doanFeeRate,
+            doanNote: s.doanNote || ""
+          })),
+          activities: activities.map(a => ({
+            id: a.id,
+            name: a.name,
+            date: a.date || a.startDate || "",
+            startDate: a.startDate || a.date || "",
+            endDate: a.endDate || a.date || "",
+            target: a.target || 5,
+            description: a.description || a.desc || "",
+            participants: a.participants || a.assigned || []
+          })),
+          seats: exportSeatsArray(),
+          doanFeeRate: doanFeeRate,
+          spinHistory: spinHistory,
+          exportedAt: new Date().toISOString()
+        };
+        exportTa.value = JSON.stringify(payload, null, 2);
+      } catch (e) {
+        exportTa.value = JSON.stringify({ students, activities, seatingGrid });
+      }
+    }
+
+    function openSyncModal() {
+      generateSyncExportCode();
+      const importInput = document.getElementById("sync-import-textarea");
+      if (importInput) importInput.value = "";
+      const modal = document.getElementById("modal-sync-info");
+      if (modal) {
+        modal.classList.remove("hidden");
+        modal.classList.add("flex");
+      }
+    }
+
+    function closeSyncModal() {
+      const modal = document.getElementById("modal-sync-info");
+      if (modal) {
+        modal.classList.add("hidden");
+        modal.classList.remove("flex");
+      }
+    }
+
+    function copySyncJsonToZalo() {
+      generateSyncExportCode();
+      const exportTa = document.getElementById("sync-export-textarea");
+      const text = exportTa ? exportTa.value : "";
+      if (!text) return;
+
+      copyTextToClipboard(text);
+      if (typeof confetti === 'function') confetti({ particleCount: 50, spread: 65, origin: { y: 0.6 } });
+      showToast("Đã sao chép mã JSON! Mở Zalo dán gửi ngay nhé 🌸", "📋");
+    }
+
+    /* Giải mã an toàn và linh hoạt (đọc được 100% dữ liệu JSON người dùng dán vào) */
+    function applySyncFromZalo() {
+      const importTa = document.getElementById("sync-import-textarea");
+      if (!importTa) return;
+      const raw = importTa.value.trim();
+      if (!raw) {
+        showToast("Vui lòng dán mã JSON hoặc mã dữ liệu từ Zalo vào ô!", "⚠️");
+        return;
+      }
+
+      try {
+        let payload = null;
+
+        // 1. Thử parse trực tiếp
+        try {
+          payload = JSON.parse(raw);
+        } catch (eDirect) {
+          // 2. Tìm khối JSON { ... } nếu dán lẫn tin nhắn Zalo
+          const match = raw.match(/\{[\s\S]*\}/);
+          if (match) {
+            try {
+              payload = JSON.parse(match[0]);
+            } catch (eMatch) {}
+          }
+        }
+
+        if (payload && (payload.students || payload.seats || payload.seatingGrid || payload.activities)) {
+          // Nạp học sinh & đoàn phí riêng
+          if (Array.isArray(payload.students) && payload.students.length > 0) {
+            students = payload.students.map(s => ({
+              id: s.id || `st-${s.code}`,
+              name: s.name,
+              code: s.code,
+              doanDate: s.doanDate || defaultDoanDate,
+              doanFeePaid: !!s.doanFeePaid,
+              doanFee: (s.doanFee !== undefined && s.doanFee !== null) ? Number(s.doanFee) : (payload.doanFeeRate || doanFeeRate),
+              doanNote: s.doanNote || ""
+            }));
+          }
+
+          // Nạp hoạt động trường
+          if (Array.isArray(payload.activities)) {
+            activities = payload.activities.map(a => ({
+              id: a.id,
+              name: a.name,
+              date: a.date || a.startDate || "",
+              startDate: a.startDate || a.date || "",
+              endDate: a.endDate || a.date || "",
+              target: a.target || 5,
+              description: a.description || a.desc || "",
+              participants: a.participants || a.assigned || []
+            }));
+          }
+
+          // Nạp sơ đồ chỗ ngồi
+          if (Array.isArray(payload.seats)) {
+            seatingGrid = {};
+            payload.seats.forEach(s => {
+              if (s.to && s.ban && s.pos) {
+                seatingGrid[`seat-${s.to}-${s.ban}-${s.pos}`] = s.studentId;
+              }
+            });
+          } else if (payload.seatingGrid && typeof payload.seatingGrid === 'object') {
+            seatingGrid = payload.seatingGrid;
+          }
+
+          if (payload.doanFeeRate) doanFeeRate = Number(payload.doanFeeRate);
+          if (Array.isArray(payload.spinHistory)) spinHistory = payload.spinHistory;
+
+          saveToLocalStorage();
+          renderSeatingGrid();
+          renderActivities();
+          renderMembers();
+          renderDoanTable();
+          renderTicketViews();
+          populateWheelActivityOptions();
+          setupWheelCandidates();
+          renderSpinHistory();
+
+          if (typeof confetti === 'function') confetti({ particleCount: 90, spread: 80, origin: { y: 0.6 } });
+          playWinSound();
+          showToast("Đồng bộ dữ liệu từ Zalo thành công 100%! 🎉", "✅");
+          closeSyncModal();
+        } else {
+          showToast("Mã dữ liệu không hợp lệ hoặc thiếu thông tin lớp!", "⚠️");
+        }
+      } catch (err) {
+        showToast("Lỗi giải mã: Hãy chắc chắn bạn đã sao chép đủ toàn bộ mã JSON!", "⚠️");
+      }
+    }
+
+    function downloadSyncFile() {
+      generateSyncExportCode();
+      const text = document.getElementById("sync-export-textarea")?.value || "{}";
+      const blob = new Blob([text], { type: "application/json" });
+      const url = URL.createObjectURL(blob);
+      const a = document.createElement("a");
+      a.href = url;
+      a.download = `BaoBoi_11V_${new Date().toISOString().slice(0,10)}.json`;
+      a.click();
+      URL.revokeObjectURL(url);
+      showToast("Đã tải tệp sao lưu .JSON!", "💾");
+    }
+
+    function uploadSyncFile(event) {
+      const file = event.target.files?.[0];
+      if (!file) return;
+      const reader = new FileReader();
+      reader.onload = (e) => {
+        const importTa = document.getElementById("sync-import-textarea");
+        if (importTa) {
+          importTa.value = e.target.result;
+          applySyncFromZalo();
+        }
+      };
+      reader.readAsText(file);
+    }
+
+    function saveToLocalStorage() {
+      try {
+        localStorage.setItem("11V_STUDENTS", JSON.stringify(students));
+        localStorage.setItem("11V_ACTIVITIES", JSON.stringify(activities));
+        localStorage.setItem("11V_SEATING", JSON.stringify(seatingGrid));
+        localStorage.setItem("11V_DOAN_FEE_RATE", JSON.stringify(doanFeeRate));
+        localStorage.setItem("11V_TICKETS", JSON.stringify(tickets));
+        localStorage.setItem("11V_SPIN_HISTORY", JSON.stringify(spinHistory));
+
+        const txt = document.getElementById("sync-status-text");
+        if (txt) {
+          txt.innerText = `Đã lưu lúc ${new Date().toLocaleTimeString('vi-VN', { hour: '2-digit', minute: '2-digit' })}`;
+        }
+      } catch (e) {}
+    }
+
+    function loadFromLocalStorage() {
+      try {
+        const sStu = localStorage.getItem("11V_STUDENTS");
+        if (sStu) {
+          const parsed = JSON.parse(sStu);
+          if (Array.isArray(parsed) && parsed.length > 0) students = parsed;
+        }
+
+        const sAct = localStorage.getItem("11V_ACTIVITIES");
+        if (sAct) activities = JSON.parse(sAct);
+
+        const sSeat = localStorage.getItem("11V_SEATING");
+        if (sSeat) seatingGrid = JSON.parse(sSeat);
+
+        const sRate = localStorage.getItem("11V_DOAN_FEE_RATE");
+        if (sRate) doanFeeRate = Number(JSON.parse(sRate));
+
+        const sTic = localStorage.getItem("11V_TICKETS");
+        if (sTic) tickets = JSON.parse(sTic);
+        else tickets = students.map(s => s.name);
+
+        const sHis = localStorage.getItem("11V_SPIN_HISTORY");
+        if (sHis) spinHistory = JSON.parse(sHis);
+      } catch (e) {}
+    }
+
+    function forceSync() {
+      loadFromLocalStorage();
+      renderSeatingGrid();
+      renderActivities();
+      renderMembers();
+      renderDoanTable();
+      renderTicketViews();
+      populateWheelActivityOptions();
+      setupWheelCandidates();
+      renderSpinHistory();
+      playBeep(800, 'sine', 0.08);
+      showToast("Đã làm mới dữ liệu từ bộ nhớ an toàn!", "🔄");
+    }
+
+    const MASCOT_QUOTES = [
+      "Lớp 11V đoàn kết là số 1 luôn! 🌸",
+      "Hôm nay bạn đã ôn bài chưa nè? Cố lên nha! ✨",
+      "Tiết học hôm nay sẽ ngập tràn điểm 10 đó! 💯",
+      "Nhớ nộp đoàn phí cho Ban Cán Sự sớm nha bạn iu 🎗️",
+      "Có chuyện gì cần quay random cứ gọi Bé Hạc nha! 🎡"
+    ];
+
+    function toggleMascotMenu() {
+      const menu = document.getElementById("mascot-menu");
+      if (!menu) return;
+      playBeep(720, 'sine', 0.05);
+      menu.classList.toggle("hidden");
+    }
+
+    function mascotTalk() {
+      const bubble = document.getElementById("mascot-speech-bubble");
+      const textEl = document.getElementById("mascot-speech-text");
+      if (!bubble || !textEl) return;
+      const quote = MASCOT_QUOTES[Math.floor(Math.random() * MASCOT_QUOTES.length)];
+      textEl.innerText = quote;
+      bubble.classList.remove("hidden");
+      playBeep(840, 'triangle', 0.08);
+      setTimeout(() => bubble.classList.add("hidden"), 3600);
+    }
+
+    function quickMascotAction(type) {
+      const menu = document.getElementById("mascot-menu");
+      if (menu) menu.classList.add("hidden");
+
+      if (type === 'oral') {
+        switchTab('seating');
+        startCallOralExam();
+      } else if (type === 'wheel') {
+        switchTab('wheel');
+        spinWheel();
+      } else if (type === 'ticket') {
+        switchTab('tickets');
+        handleDrawClick(1);
+      } else if (type === 'doan') {
+        switchTab('doan');
+        copyUnpaidDoanList();
+      } else if (type === 'sync') {
+        openSyncModal();
+      }
+    }
+
+    function switchTab(tabId) {
+      document.querySelectorAll(".tab-pane").forEach(p => p.classList.add("hidden"));
+      document.querySelectorAll(".nav-tab-btn").forEach(b => {
+        b.classList.remove("active", "liquid-btn-primary");
+        b.classList.add("text-rose-700");
+      });
+
+      const targetPane = document.getElementById(`tab-${tabId}`);
+      if (targetPane) targetPane.classList.remove("hidden");
+
+      const activeBtn = document.getElementById(`tab-btn-${tabId}`);
+      if (activeBtn) {
+        activeBtn.classList.add("active", "liquid-btn-primary");
+        activeBtn.classList.remove("text-rose-700");
+      }
+
+      if (tabId === 'wheel') {
+        setTimeout(() => {
+          populateWheelActivityOptions();
+          setupWheelCandidates();
+        }, 60);
+      }
+      playBeep(650, 'sine', 0.03);
+    }
+
+    function showToast(message, icon = "🌸") {
+      const toast = document.getElementById("toast");
+      const msg = document.getElementById("toast-message");
+      const ic = document.getElementById("toast-icon");
+      if (!toast || !msg || !ic) return;
+
+      msg.innerText = message;
+      ic.innerText = icon;
+      toast.classList.remove("translate-y-[-120%]", "opacity-0");
+      toast.classList.add("translate-y-0", "opacity-100");
+
+      setTimeout(() => {
+        toast.classList.add("translate-y-[-120%]", "opacity-0");
+        toast.classList.remove("translate-y-0", "opacity-100");
+      }, 2600);
+    }
+
+    function copyTextToClipboard(text) {
+      try {
+        const ta = document.createElement("textarea");
+        ta.value = text;
+        ta.style.position = "fixed";
+        ta.style.left = "-9999px";
+        ta.style.top = "0";
+        document.body.appendChild(ta);
+        ta.focus();
+        ta.select();
+        document.execCommand("copy");
+        document.body.removeChild(ta);
+        return true;
+      } catch (err) {
+        return false;
+      }
+    }
+
+    /* Gắn toàn bộ hàm lên window để HTML gọi được không lỗi */
+    Object.assign(window, {
+      switchTab,
+      forceSync,
+      openSyncModal,
+      closeSyncModal,
+      copySyncJsonToZalo,
+      applySyncFromZalo,
+      downloadSyncFile,
+      uploadSyncFile,
+      focusOfficerSeat,
+      handleSeatClick,
+      autoFillSeating,
+      clearAllSeats,
+      startCallOralExam,
+      closeOralResultModal,
+      openNewActivityModal,
+      editActivity,
+      closeActivityModal,
+      handleSaveActivity,
+      deleteActivity,
+      removeStudentFromActivity,
+      setActivityFilter,
+      quickAddStudentToActivity,
+      copyActivityParticipants,
+      openManualAddParticipantsModal,
+      closeManualAddParticipantsModal,
+      renderManualStudentSelectionList,
+      toggleManualStudentCheck,
+      toggleSelectAllManual,
+      selectAllZeroActivityStudents,
+      saveManualAddParticipants,
+      openUnassignedStudentsModal,
+      closeUnassignedStudentsModal,
+      copyUnassignedStudentsList,
+      renderMembers,
+      openEditStudentModal,
+      closeEditStudentModal,
+      handleSaveStudent,
+      exportMembersToExcel,
+      exportDoanToExcel,
+      renderDoanTable,
+      toggleDoanPayment,
+      updateStudentDoanFee,
+      setQuickStudentFee,
+      updateStudentDoanDate,
+      updateStudentDoanNote,
+      openEditIndividualDoanModal,
+      closeEditIndividualDoanModal,
+      setModalDoanFeePreset,
+      saveIndividualDoanMember,
+      openDoanSettingModal,
+      closeDoanSettingModal,
+      saveDoanGeneralSettings,
+      copyUnpaidDoanList,
+      setupWheelCandidates,
+      spinWheel,
+      closeWheelWinnerModal,
+      confirmAssignToActivity,
+      clearSpinHistory,
+      handleDrawClick,
+      addTicketsFromMultiline,
+      apply11VStudentsToTickets,
+      promptGenerateNumberTickets,
+      removeSingleTicket,
+      clearAllTickets,
+      shuffleTicketBox,
+      closeTicketResultModal,
+      mascotTalk,
+      toggleMascotMenu,
+      quickMascotAction
+    });
+
+    /* Khởi động trang web */
+    window.addEventListener("DOMContentLoaded", () => {
+      loadFromLocalStorage();
+      renderSeatingGrid();
+      renderActivities();
+      renderMembers();
+      renderDoanTable();
+      renderTicketViews();
+      populateWheelActivityOptions();
+      setupWheelCandidates();
+      renderSpinHistory();
+
+      switchTab('seating');
+    });
+  </script>
+</body>
+</html>
